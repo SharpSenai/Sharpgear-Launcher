@@ -5,14 +5,15 @@ connection = sqlite3.connect("sharp.db")
 print(connection.total_changes)
 
 cursor = connection.cursor()
+'''
 cursor.execute("CREATE TABLE fish (name TEXT, species TEXT, tank_number INTEGER)")
 cursor.execute("INSERT INTO fish VALUES ('Sammy', 'shark', 1)")
 cursor.execute("INSERT INTO fish VALUES ('Jamie', 'cuttlefish', 7)")
-
+'''
 rows = cursor.execute("SELECT name, species, tank_number FROM fish").fetchall()
 print(rows)
 
-class MyFrame(ctk.CTkFrame):
+class LoginFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         
@@ -39,19 +40,3 @@ class MyFrame(ctk.CTkFrame):
         #Botões
         self.btt_login = ctk.CTkButton(self,text='ENTRAR')
         self.btt_login.grid(row = 6, column = 0,padx = 20, sticky='w')
-
-class App(ctk.CTk):
-    def __init__(self) -> None:
-        super().__init__()
-
-        self.title('Sharpgear Launcher')
-        self.geometry('960x540')
-        ctk.set_appearance_mode('Dark')
-
-        self.my_frame = MyFrame(master=self)
-        self.my_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
-
-
-
-app = App()
-app.mainloop()

@@ -1,27 +1,22 @@
 import customtkinter as ctk
 import sqlite3
 from contextlib import closing
-
-ctk.set_appearance_mode('Dark')
-
-connection = sqlite3.connect("sharp_database.db")
-print(connection.total_changes)
-
-"""
+from login import LoginFrame
+'''
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE users (nome TEXT, username TEXT, email TEXT, senha TEXT, data_nasc TEXT)")
-"""
-
+cursor.execute("CREATE TABLE users (nome TEXT, user TEXT, email TEXT, senha TEXT, nasc TEXT)")
+'''
 def add_usuario():
     connection = sqlite3.connect('sharp_database.db')
     cursor = connection.cursor()
     
-    nome = ent_nome.get()   # type: ignore
-    user = ent_user.get()   # type: ignore
-    email = ent_email.get() # type: ignore
-    senha = ent_senha.get() # type: ignore
-    nasc = ent_nasc.get()   # type: ignore
+    nome = app.my_frame.ent_nome.get()   # type: ignore
+    user = app.my_frame.ent_user.get()   # type: ignore
+    email = app.my_frame.ent_email.get() # type: ignore
+    senha = app.my_frame.ent_senha.get() # type: ignore
+    nasc = app.my_frame.ent_nasc.get()   # type: ignore
 
+    RegisterWindow.destroy()
     try: 
         cursor.execute('INSERT INTO users (nome, user, email, senha, nasc) VALUES (?,?,?,?,?)', (nome,user,email,senha,nasc))
         connection.commit()
@@ -30,11 +25,14 @@ def add_usuario():
     finally:
         connection.close()
 
+def taquipariu():
+    print('vogoza')
+
 class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
-        
-        #region ~~~~Labels~~~~
+
+       #region ~~~~Labels~~~~
         #"Seja Bem-Vindo"
         self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
         self.label.grid(row=0, column=0, padx=20,pady=20,sticky = 'w')
@@ -42,11 +40,12 @@ class RegisterFrame(ctk.CTkFrame):
         self.label = ctk.CTkLabel(self,text='Crie sua conta na Sharpgear Launcher',font=('Codec Pro',15,'bold'))
         self.label.grid(row=1, column=0, padx=20,sticky = 'w')
         #"Ou Entre[...]"
-        self.label = ctk.CTkLabel(self,text='Ou Entre em sua Conta')
+        self.label = ctk.CTkLabel(self, text='Ou ')
         self.label.grid(row=2, column=0, padx=20,sticky = 'w')
-        #"Ao Cadastrar[...]"
-        self.label = ctk.CTkLabel(self,text='Ao Cadastrar na Sharpgear Launcher você concorda com os nossos termos de uso.')
-        self.label.grid(row=8, column=0, padx=20,sticky = 'w')
+
+        self.label = ctk.CTkLabel(self, text='Entre' , cursor="hand2",font=("Arial", 12, "bold" , 'underline'))
+        self.label.grid(row=2, column=0, padx=40,sticky = 'w')
+        self.label.bind("<Button-1>", lambda e: taquipariu())
         #endregion
 
         #region ~~~~Entradas~~~~
@@ -69,19 +68,15 @@ class RegisterFrame(ctk.CTkFrame):
     
         #region ~~~~Botões~~~~
         #Cadastrar
-        self.btt_login = ctk.CTkButton(self,text='CADASTRAR')
+        self.btt_login = ctk.CTkButton(self,text='CADASTRAR',command=add_usuario)
         self.btt_login.grid(row = 9, column = 0,padx = 20, sticky='w')
         #endregion
 
-class App(ctk.CTk):
-    def __init__(self) -> None:
-        super().__init__()
-      
+class RegisterWindow(ctk.CTkToplevel):
+    def __init__(self,master):
+        super().__init__(master)
         self.title('Sharpgear Launcher')
         self.geometry('960x540')
 
-        self.my_frame = RegisterFrame(master=self)
-        self.my_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
-
-app = App()
-app.mainloop()
+        self.register_frame = RegisterFrame(self)
+        self.register_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
