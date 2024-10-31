@@ -32,7 +32,7 @@ class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-       #region ~~~~Labels~~~~
+        #region ~~~~Labels~~~~
         #"Seja Bem-Vindo"
         self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
         self.label.grid(row=0, column=0, padx=20,pady=20,sticky = 'w')
@@ -80,3 +80,16 @@ class RegisterWindow(ctk.CTkToplevel):
 
         self.register_frame = RegisterFrame(self)
         self.register_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
+
+class App(ctk.CTk):
+    def __init__(self) -> None:
+        super().__init__()
+        self.title('Sharpgear Launcher')
+        self.geometry('960x540')
+
+        self.my_frame = RegisterFrame(master=self)
+        self.my_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
+        
+
+app = App()
+app.mainloop()

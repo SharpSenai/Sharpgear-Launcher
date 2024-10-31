@@ -1,9 +1,6 @@
 import customtkinter as ctk
-from register import RegisterWindow
-ctk.set_appearance_mode('Dark')
 
-def AbrirJanelaRegistro():
-    RegisterWindow()
+ctk.set_appearance_mode('Dark')
 
 class MyTabView(ctk.CTkTabview):
     def __init__(self, master, **kwargs):
@@ -23,7 +20,9 @@ class App(ctk.CTk):
 
         self.title('Sharpgear Launcher')
         self.geometry('1280x720')
-        RegisterWindow(self)
-       
+
+        from register import RegisterFrame
+
+
 app = App()
 app.mainloop()
