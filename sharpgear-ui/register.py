@@ -1,7 +1,5 @@
 import customtkinter as ctk
 import sqlite3
-from contextlib import closing
-from login import LoginFrame
 '''
 cursor = connection.cursor()
 cursor.execute("CREATE TABLE users (nome TEXT, user TEXT, email TEXT, senha TEXT, nasc TEXT)")
@@ -26,7 +24,16 @@ def add_usuario():
         connection.close()
 
 def taquipariu():
-    print('vogoza')
+    pass
+
+class LoginFrame(ctk.CTkFrame):
+    def _init__(self,master,**kwargs):
+        super().__init__(master, **kwargs)
+
+        #region ~~~~Labels~~~~
+        #"Seja Bem-Vindo"
+        self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
+        self.label.grid(row=0, column=0, padx=20,pady=20,sticky = 'w')
 
 class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -39,13 +46,14 @@ class RegisterFrame(ctk.CTkFrame):
         #"Crie sua conta[...]"
         self.label = ctk.CTkLabel(self,text='Crie sua conta na Sharpgear Launcher',font=('Codec Pro',15,'bold'))
         self.label.grid(row=1, column=0, padx=20,sticky = 'w')
-        #"Ou Entre[...]"
+        #"Ou ..."
         self.label = ctk.CTkLabel(self, text='Ou ')
         self.label.grid(row=2, column=0, padx=20,sticky = 'w')
-
-        self.label = ctk.CTkLabel(self, text='Entre' , cursor="hand2",font=("Arial", 12, "bold" , 'underline'))
+        #"{Entre}"
+        self.label = ctk.CTkLabel(self, text='Entre em sua conta' , cursor="hand2",font=("Arial", 12, "bold" , 'underline'))
         self.label.grid(row=2, column=0, padx=40,sticky = 'w')
         self.label.bind("<Button-1>", lambda e: taquipariu())
+
         #endregion
 
         #region ~~~~Entradas~~~~
@@ -79,7 +87,7 @@ class RegisterWindow(ctk.CTkToplevel):
         self.geometry('960x540')
 
         self.register_frame = RegisterFrame(self)
-        self.register_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
+        self.register_frame.pack
 
 class App(ctk.CTk):
     def __init__(self) -> None:
@@ -88,7 +96,8 @@ class App(ctk.CTk):
         self.geometry('960x540')
 
         self.my_frame = RegisterFrame(master=self)
-        self.my_frame.grid(row=0, column=0, padx=0, pady=0, sticky="w")
+        self.my_frame.pack(side="left",fill ='y')
+        #self.my_frame.grid(row=0, column=0, padx=0, pady=0, sticky="s")
         
 
 app = App()

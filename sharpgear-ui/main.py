@@ -2,6 +2,11 @@ import customtkinter as ctk
 
 ctk.set_appearance_mode('Dark')
 
+root = None
+
+def LoginWindow():
+    app.destroy()
+
 class MyTabView(ctk.CTkTabview):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -9,7 +14,6 @@ class MyTabView(ctk.CTkTabview):
         # create tabs
         self.add("tab 1")
         self.add("tab 2")
-
         # add widgets on tabs
         self.label = ctk.CTkLabel(master=self.tab("tab 1"))
         self.label.grid(row=0, column=0, padx=20, pady=10)
@@ -23,6 +27,6 @@ class App(ctk.CTk):
 
         from register import RegisterFrame
 
-
 app = App()
-app.mainloop()
+root = app
+root.mainloop()
