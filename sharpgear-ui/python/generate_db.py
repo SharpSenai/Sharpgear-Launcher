@@ -7,4 +7,11 @@ connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
 print(connection.total_changes)
 
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE users (nome TEXT, user TEXT, email TEXT, senha TEXT, nasc TEXT)")
+cursor.execute('''
+               CREATE TABLE users ( 
+               nome TEXT, 
+               user TEXT UNIQUE, 
+               email TEXT UNIQUE, 
+               senha TEXT, 
+               nasc TEXT)
+''')
