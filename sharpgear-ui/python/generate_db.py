@@ -9,9 +9,11 @@ print(connection.total_changes)
 cursor = connection.cursor()
 cursor.execute('''
                CREATE TABLE users ( 
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
                nome TEXT, 
                user TEXT UNIQUE, 
                email TEXT UNIQUE, 
                senha TEXT, 
-               nasc TEXT)
+               nasc TEXT
+)
 ''')

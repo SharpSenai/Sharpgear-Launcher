@@ -1,8 +1,32 @@
 import customtkinter as ctk
+import sqlite3
+from register import abrir_janela_principal
+
+connection = sqlite3.connect('sharpgear-ui\database\sharp_database.db')
+cursor = connection.cursor()
+
+def fazer_login():
+    print("Input Entrar")
 
 class LoginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,)
+
+        def login_user():
+            username = self.ent_email.get()
+            senha = self.ent_senha.get()
+
+            connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
+            cursor = connection.cursor()
+            cursor.execute("SELECT id FROM users WHERE user = ? AND senha =?", (username, senha))
+            user = cursor.fetchone()
+
+            if user:
+                print(f"Logou como:{username}")
+                abrir_janela_principal()
+            else:
+                print("Usuario ou senha inválidos")
+
         #region ~~~~Labels~~~~
         #"Seja Bem-Vindo"
         self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
@@ -31,5 +55,6 @@ class LoginFrame(ctk.CTkFrame):
         #endregion
         
         # Botão para Entrar
-        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar')
+        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar' ,command = login_user)
         self.btn_cadastrar.grid(row= 9,column = 0,padx = 20, pady = 10, sticky = 'w')
+
