@@ -1,8 +1,28 @@
 import customtkinter as ctk
+import sqlite3
+from register import abrir_janela_principal
 
 class LoginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,)
+
+        def login_user():
+            username = self.ent_email.get()
+            senha = self.ent_senha.get()
+
+            connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
+            cursor = connection.cursor()
+            cursor.execute("SELECT id FROM users WHERE user = ? AND senha =?", (username, senha))
+            user = cursor.fetchone()
+
+            if user:
+                print(f"Logou como:{username}")
+                abrir_janela_principal()
+            else:
+                self.label = ctk.CTkLabel(self,text='Usuário ou Senha Inválidos')
+                self.label.grid(row=10, column=0, padx=20,sticky = 'w')
+                print("Usuario ou senha inválidos")
+
         #region ~~~~Labels~~~~
         #"Seja Bem-Vindo"
         self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
@@ -26,10 +46,10 @@ class LoginFrame(ctk.CTkFrame):
         self.ent_email = ctk.CTkEntry(self,placeholder_text='Usuário ou Email')
         self.ent_email.grid(row= 5,column = 0,padx = 20, pady = 10, sticky = 'w')
         #Senha
-        self.ent_senha = ctk.CTkEntry(self,placeholder_text='Senha')
+        self.ent_senha = ctk.CTkEntry(self,placeholder_text='Senha', show = "*")
         self.ent_senha.grid(row= 6,column = 0,padx = 20, pady = 10, sticky = 'w')
         #endregion
         
         # Botão para Entrar
-        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar')
+        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar',command= login_user)
         self.btn_cadastrar.grid(row= 9,column = 0,padx = 20, pady = 10, sticky = 'w')

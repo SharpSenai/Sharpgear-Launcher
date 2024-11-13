@@ -29,6 +29,8 @@ def abrir_janela_principal():
     label = ctk.CTkLabel(janela_principal, text='Bem-vindo ao Sharpgear Launcher!', font=('Codec Cold Trial', 25, 'bold'))
     label.pack(pady=20)
 
+
+
     janela_principal.mainloop()
 
 class RegisterFrame(ctk.CTkFrame):
@@ -60,8 +62,8 @@ class RegisterFrame(ctk.CTkFrame):
         self.ent_email = ctk.CTkEntry(self,placeholder_text='Email')
         self.ent_email.grid(row= 5,column = 0,padx = 20, pady = 10, sticky = 'w')
         #Senha
-        self.ent_senha = ctk.CTkEntry(self,placeholder_text='Senha')
-        self.ent_senha.grid(row= 6,column = 0,padx = 20, pady = 10, sticky = 'w')
+        self.ent_senha = ctk.CTkEntry(self,placeholder_text='Senha',show = "*")
+        self.ent_senha.grid(row= 6,column = 0,padx = 20, pady = 10, sticky = 'w' )
         #Data de Nascimento
         self.ent_nasc = ctk.CTkEntry(self,placeholder_text='Data de Nascimento')
         self.ent_nasc.grid(row= 7,column = 0,padx = 20, pady = 10, sticky = 'w')
@@ -81,4 +83,3 @@ class RegisterWindow(ctk.CTkToplevel):
         
         self.register_frame = RegisterFrame(self)
         self.register_frame.pack(side='left',fill='y')
-       
