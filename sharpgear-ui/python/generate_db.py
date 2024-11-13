@@ -10,10 +10,10 @@ cursor = connection.cursor()
 cursor.execute('''
                CREATE TABLE users ( 
                id INTEGER PRIMARY KEY AUTOINCREMENT,
-               nome TEXT, 
-               user TEXT UNIQUE, 
-               email TEXT UNIQUE, 
-               senha TEXT, 
-               nasc TEXT
+               nome TEXT NOT NULL, 
+               user TEXT UNIQUE  NOT NULL, 
+               email TEXT UNIQUE NOT NULL, 
+               senha TEXT  NOT NULL, 
+               nasc TEXT  NOT NULL
 )
 ''')
