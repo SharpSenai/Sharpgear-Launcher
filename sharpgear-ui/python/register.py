@@ -81,4 +81,3 @@ class RegisterWindow(ctk.CTkToplevel):
         
         self.register_frame = RegisterFrame(self)
         self.register_frame.pack(side='left',fill='y')
-       

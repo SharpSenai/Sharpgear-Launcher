@@ -22,3 +22,4 @@ class LoginWindow(ctk.CTk):
 if __name__ == "__main__":
     app = LoginWindow()
     app.mainloop()
+        
