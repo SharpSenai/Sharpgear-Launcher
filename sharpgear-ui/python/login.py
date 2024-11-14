@@ -2,6 +2,7 @@ import customtkinter as ctk
 from register import abrir_janela_principal
 
 
+
 class LoginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,)
