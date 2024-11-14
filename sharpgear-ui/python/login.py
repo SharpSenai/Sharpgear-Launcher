@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from register import abrir_janela_principal
+from register import verificar_usuario
 
 
 
@@ -34,5 +34,5 @@ class LoginFrame(ctk.CTkFrame):
         #endregion
         
         # Botão para Entrar
-        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar',command = abrir_janela_principal)
+        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar',command = lambda: verificar_usuario(self))
         self.btn_cadastrar.grid(row= 9,column = 0,padx = 20, pady = 10, sticky = 'w',)

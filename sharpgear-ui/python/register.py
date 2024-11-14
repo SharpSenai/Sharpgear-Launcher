@@ -2,7 +2,7 @@ import customtkinter as ctk
 import sqlite3
 
 def add_usuario(master):
-    connection = sqlite3.connect('sharpgear-ui\database\sharp_database.db')
+    connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
     cursor = connection.cursor()
     
     nome = master.ent_nome.get()
@@ -11,72 +11,90 @@ def add_usuario(master):
     senha = master.ent_senha.get()
     nasc = master.ent_nasc.get()
 
+    print(nome, user, email, senha, nasc)
+    print("❤")
     try: 
         cursor.execute('INSERT INTO users (nome, user, email, senha, nasc) VALUES (?, ?, ?, ?, ?)', (nome, user, email, senha, nasc))
         connection.commit()
         master.destroy()  # Fecha a janela de registro
-        abrir_janela_principal()  # Chama a função para abrir a janela principal
+        print("😜")
+
+        abrir_janela_principal("Tue")  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
         print("Erro ao inserir usuário no banco de dados.")
     finally:
         connection.close()
 
-def abrir_janela_principal():
+def verificar_usuario(master):
+    connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
+    cursor = connection.cursor()
+
+    nomeEmail = master.ent_email.get()
+    senha = master.ent_senha.get()
+
+    print(nomeEmail, senha)
+
+    try:
+        cursor.execute('SELECT user FROM users WHERE (user = ? OR email = ?) AND senha = ?',(nomeEmail,nomeEmail,senha))
+        resultado = cursor.fetchone()
+        print(cursor.fetchone())
+        if resultado:
+            abrir_janela_principal(resultado[0])
+        else:
+            print("Login de usuario errado !!")
+
+    except sqlite3.Error as E:
+        print(f"Deu erro! {E}")
+
+def abrir_janela_principal(nome_usuario):
+    print("🎶")
     janela_principal = ctk.CTk()
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    btt_biblioteca = ctk.CTkButton(janela_principal,text="BIBLIOTECA")
-    btt_biblioteca.grid(row = 0, column = 1, padx = 50, pady = 20)
+    # Exibindo o nome do usuário no canto superior direito
+    label_nome = ctk.CTkLabel(janela_principal, text=nome_usuario, font=('Codec Cold Trial', 15, 'bold'))
+    label_nome.grid(row=0, column=8, padx=500, pady=4)
 
-    btt_loja = ctk.CTkButton(janela_principal,text="LOJA")
-    btt_loja.grid(row = 0, column = 2, padx = 50, pady = 20)
+    btt_biblioteca = ctk.CTkButton(janela_principal, text="BIBLIOTECA")
+    btt_biblioteca.grid(row=0, column=1, padx=50, pady=20)
 
-    btt_perfil = ctk.CTkButton(janela_principal,text="PERFIL")
-    btt_perfil.grid(row = 0, column = 3, padx = 50, pady = 20)
+    btt_loja = ctk.CTkButton(janela_principal, text="LOJA")
+    btt_loja.grid(row=0, column=2, padx=50, pady=20)
+
+    btt_perfil = ctk.CTkButton(janela_principal, text="PERFIL")
+    btt_perfil.grid(row=0, column=3, padx=50, pady=20)
 
     janela_principal.mainloop()
 
 class RegisterFrame(ctk.CTkFrame):
-    def __init__(self,master):
+    def __init__(self, master):
         super().__init__(master)
-        #region ~~~~Labels~~~~
-        #"Seja Bem-Vindo"
-        self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
-        self.label.grid(row=0, column=0, padx=20,pady=20,sticky = 'w')
-        #"Crie sua conta[...]"
-        self.label = ctk.CTkLabel(self,text='Crie sua conta na Sharpgear Launcher',font=('Codec Pro',15,'bold'))
-        self.label.grid(row=1, column=0, padx=20,sticky = 'w')
-        #"Ou Entre[...]"
-        self.label = ctk.CTkLabel(self,text='Ou Entre em sua Conta')
-        self.label.grid(row=2, column=0, padx=20,sticky = 'w')
-        #"Ao Cadastrar[...]"
-        self.label = ctk.CTkLabel(self,text='Ao Cadastrar na Sharpgear Launcher você concorda com os nossos termos de uso.')
-        self.label.grid(row=8, column=0, padx=20,sticky = 'w')
-        #endregion
+        # Labels
+        self.label = ctk.CTkLabel(self, text='SEJA BEM VINDO!', font=('Codec Cold Trial', 25, 'bold'))
+        self.label.grid(row=0, column=0, padx=20, pady=20, sticky='w')
+        self.label = ctk.CTkLabel(self, text='Crie sua conta na Sharpgear Launcher', font=('Codec Pro', 15, 'bold'))
+        self.label.grid(row=1, column=0, padx=20, sticky='w')
+        self.label = ctk.CTkLabel(self, text='Ou Entre em sua Conta')
+        self.label.grid(row=2, column=0, padx=20, sticky='w')
+        self.label = ctk.CTkLabel(self, text='Ao Cadastrar na Sharpgear Launcher você concorda com os nossos termos de uso.')
+        self.label.grid(row=8, column=0, padx=20, sticky='w')
 
-        #region ~~~~Entradas~~~~
-        #Nome Completo
-        self.ent_nome = ctk.CTkEntry(self,placeholder_text='Nome Completo')
-        self.ent_nome.grid(row= 3,column = 0,padx = 20, pady = 10, sticky = 'w')
-        #Usuário
-        self.ent_user = ctk.CTkEntry(self,placeholder_text='Usuário')
-        self.ent_user.grid(row= 4,column = 0,padx = 20, pady = 10, sticky = 'w')
-        #Email
-        self.ent_email = ctk.CTkEntry(self,placeholder_text='Email')
-        self.ent_email.grid(row= 5,column = 0,padx = 20, pady = 10, sticky = 'w')
-        #Senha
-        self.ent_senha = ctk.CTkEntry(self,placeholder_text='Senha',show = '*')
-        self.ent_senha.grid(row= 6,column = 0,padx = 20, pady = 10, sticky = 'w',)
-        #Data de Nascimento
-        self.ent_nasc = ctk.CTkEntry(self,placeholder_text='Data de Nascimento')
-        self.ent_nasc.grid(row= 7,column = 0,padx = 20, pady = 10, sticky = 'w')
-        #endregion
+        # Entradas
+        self.ent_nome = ctk.CTkEntry(self, placeholder_text='Nome Completo')
+        self.ent_nome.grid(row=3, column=0, padx=20, pady=10, sticky='w')
+        self.ent_user = ctk.CTkEntry(self, placeholder_text='Usuário')
+        self.ent_user.grid(row=4, column=0, padx=20, pady=10, sticky='w')
+        self.ent_email = ctk.CTkEntry(self, placeholder_text='Email')
+        self.ent_email.grid(row=5, column=0, padx=20, pady=10, sticky='w')
+        self.ent_senha = ctk.CTkEntry(self, placeholder_text='Senha', show='*')
+        self.ent_senha.grid(row=6, column=0, padx=20, pady=10, sticky='w')
+        self.ent_nasc = ctk.CTkEntry(self, placeholder_text='Data de Nascimento')
+        self.ent_nasc.grid(row=7, column=0, padx=20, pady=10, sticky='w')
         
         # Botão para registrar o usuário
         self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=lambda: add_usuario(self))
-        self.btn_cadastrar.grid(row= 9,column = 0,padx = 20, pady = 10, sticky = 'w')
-
+        self.btn_cadastrar.grid(row=9, column=0, padx=20, pady=10, sticky='w')
 
 class RegisterWindow(ctk.CTkToplevel):
     def __init__(self, master):
@@ -86,5 +104,4 @@ class RegisterWindow(ctk.CTkToplevel):
         self.resizable(False, False)
         
         self.register_frame = RegisterFrame(self)
-        self.register_frame.pack(side='left',fill='y')
-       
+        self.register_frame.pack(side='left', fill='y')
