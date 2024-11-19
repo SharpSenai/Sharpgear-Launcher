@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import sqlite3
+from biblioteca import UpperFrame, LeftFrame
 
 def add_usuario(master):
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
@@ -52,18 +53,11 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    # Exibindo o nome do usuário no canto superior direito
-    label_nome = ctk.CTkLabel(janela_principal, text=nome_usuario, font=('Codec Cold Trial', 15, 'bold'))
-    label_nome.grid(row=0, column=8, padx=500, pady=4)
+    laura = UpperFrame(janela_principal,nome_usuario)
+    laura.pack()
 
-    btt_biblioteca = ctk.CTkButton(janela_principal, text="BIBLIOTECA")
-    btt_biblioteca.grid(row=0, column=1, padx=50, pady=20)
-
-    btt_loja = ctk.CTkButton(janela_principal, text="LOJA")
-    btt_loja.grid(row=0, column=2, padx=50, pady=20)
-
-    btt_perfil = ctk.CTkButton(janela_principal, text="PERFIL")
-    btt_perfil.grid(row=0, column=3, padx=50, pady=20)
+    luquinhasdeladinho = LeftFrame(janela_principal)
+    luquinhasdeladinho.pack(side = "left",fill = "y")
 
     janela_principal.mainloop()
 
