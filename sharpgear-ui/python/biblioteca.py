@@ -1,13 +1,13 @@
 import customtkinter as ctk
 
-class MainFrame(ctk.CTkFrame):
+class BibliotecaFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
         super().__init__(master)
 
-        self.luquinhasdeladinho = LeftFrame(self)
+        self.luquinhasdeladinho = BibliotecaLeftBar(self)
         self.luquinhasdeladinho.pack(side = "left", fill = "y")
 
-class LeftFrame(ctk.CTkFrame):
+class BibliotecaLeftBar(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master)
 

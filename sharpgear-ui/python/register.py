@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import sqlite3
-from biblioteca import MainFrame
+from biblioteca import BibliotecaFrame
 from upperframe import UpperFrame
 
 def add_usuario(master):
@@ -21,7 +21,7 @@ def add_usuario(master):
         master.destroy()  # Fecha a janela de registro
         print("😜")
 
-        abrir_janela_principal(user)  # Chama a função para abrir a janela principal
+        abrir_janela_principal(user  )  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
         print("Erro ao inserir usuário no banco de dados.")
     finally:
@@ -59,10 +59,11 @@ def abrir_janela_principal(nome_usuario):
     laura = UpperFrame(janela_principal,nome_usuario)
     laura.pack()
 
-    mainframe = MainFrame(janela_principal,nome_usuario)
+    mainframe = BibliotecaFrame(janela_principal,nome_usuario)
     mainframe.pack(side = "left",fill = 'y')
 
     janela_principal.mainloop()
+    
 
 
 class RegisterFrame(ctk.CTkFrame):

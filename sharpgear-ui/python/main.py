@@ -1,12 +1,13 @@
 import customtkinter as ctk
 from register import RegisterWindow
-from login import LoginFrame
+from login_frame import LoginFrame
 
 ctk.set_appearance_mode('Dark')
 
 class LoginWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
+        print("Janela login aberta")
         self.title('Sharpgear Launcher - Login')
         self.geometry('960x540')
         self.resizable(False, False)
