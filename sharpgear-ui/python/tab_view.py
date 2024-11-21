@@ -1,5 +1,20 @@
 import customtkinter as ctk
 
+class TabView(ctk.CTkTabview):
+    def __init__(self,master):
+        super().__init__(master)
+
+        tab_biblioteca = self.add("Biblioteca")
+        tab_loja = self.add("Loja")
+        tab_perfil = self.add("Perfil")
+
+        #region ~~BIBLIOTECA
+        self.entry = ctk.CTkEntry(master = tab_biblioteca,placeholder_text="🔍")
+        self.entry.pack(padx = 20,fill = 'x')
+
+        #endregion 
+
+
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
         super().__init__(master)

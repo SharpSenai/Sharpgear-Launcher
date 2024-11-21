@@ -11,5 +11,4 @@ class BibliotecaLeftBar(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master)
 
-        self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
-        self.entry.pack(padx = 20,fill = 'x')
+        

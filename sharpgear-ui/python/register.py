@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import sqlite3
 from biblioteca import BibliotecaFrame
-from upperframe import UpperFrame
+from tab_view import TabView
 
 def add_usuario(master):
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
@@ -56,7 +56,7 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    laura = UpperFrame(janela_principal,nome_usuario)
+    laura = TabView(janela_principal)
     laura.pack()
 
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)
@@ -64,8 +64,6 @@ def abrir_janela_principal(nome_usuario):
 
     janela_principal.mainloop()
     
-
-
 class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
