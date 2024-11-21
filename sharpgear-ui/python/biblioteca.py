@@ -1,11 +1,22 @@
 import customtkinter as ctk
 import sqlite3
 
+class MainFrame(ctk.CTkFrame):
+    def __init__(self,master,nome_user):
+        super().__init__(master)
+            
+        self.laura = UpperFrame(self,nome_user)
+        self.laura.pack()
+
+        self.luquinhasdeladinho = LeftFrame(self)
+        self.luquinhasdeladinho.pack(side = "left", fill = "y")
+
+
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
         super().__init__(master)
         
-                # Exibindo o nome do usuário no canto superior direito
+        # Exibindo o nome do usuário no canto superior direito
         self.label_nome = ctk.CTkLabel(self, text=nome_user, font=('Codec Cold Trial', 15, 'bold'))
         self.label_nome.grid(row=0, column=8, padx=500, pady=4)
 
@@ -22,5 +33,5 @@ class LeftFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master)
 
-        self.entry = ctk.CTkEntry(self,placeholder_text="SEXXXXXXXXO")
+        self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
         self.entry.pack(padx = 20,fill = 'x')

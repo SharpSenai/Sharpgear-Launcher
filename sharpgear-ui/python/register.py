@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import sqlite3
-from biblioteca import UpperFrame, LeftFrame
+from biblioteca import MainFrame
 
 def add_usuario(master):
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
@@ -20,7 +20,7 @@ def add_usuario(master):
         master.destroy()  # Fecha a janela de registro
         print("😜")
 
-        abrir_janela_principal("Tue")  # Chama a função para abrir a janela principal
+        abrir_janela_principal(user)  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
         print("Erro ao inserir usuário no banco de dados.")
     finally:
@@ -39,8 +39,10 @@ def verificar_usuario(master):
         cursor.execute('SELECT user FROM users WHERE (user = ? OR email = ?) AND senha = ?',(nomeEmail,nomeEmail,senha))
         resultado = cursor.fetchone()
         print(cursor.fetchone())
+        
         if resultado:
             abrir_janela_principal(resultado[0])
+            master.destroy()
         else:
             print("Login de usuario errado !!")
 
@@ -53,13 +55,26 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    laura = UpperFrame(janela_principal,nome_usuario)
-    laura.pack()
-
-    luquinhasdeladinho = LeftFrame(janela_principal)
-    luquinhasdeladinho.pack(side = "left",fill = "y")
+    mainframe = MainFrame(janela_principal,nome_usuario)
+    mainframe.pack(side = "left",fill = 'y')
 
     janela_principal.mainloop()
+    '''
+    # Exibindo o nome do usuário no canto superior direito
+    label_nome = ctk.CTkLabel(janela_principal, text=nome_usuario, font=('Codec Cold Trial', 15, 'bold'))
+    label_nome.grid(row=0, column=8, padx=500, pady=4)
+
+    btt_biblioteca = ctk.CTkButton(janela_principal, text="BIBLIOTECA")
+    btt_biblioteca.grid(row=0, column=1, padx=50, pady=20)
+
+    btt_loja = ctk.CTkButton(janela_principal, text="LOJA")
+    btt_loja.grid(row=0, column=2, padx=50, pady=20)
+
+    btt_perfil = ctk.CTkButton(janela_principal, text="PERFIL")
+    btt_perfil.grid(row=0, column=3, padx=50, pady=20)
+
+    janela_principal.mainloop()
+    '''
 
 class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master):

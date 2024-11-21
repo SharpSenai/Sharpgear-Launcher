@@ -1,8 +1,6 @@
 import customtkinter as ctk
 from register import verificar_usuario
 
-
-
 class LoginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,)
