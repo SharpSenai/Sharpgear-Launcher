@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from PIL import Image
 
 class TabView(ctk.CTkTabview):
     def __init__(self,master):
@@ -8,12 +9,16 @@ class TabView(ctk.CTkTabview):
         tab_loja = self.add("Loja")
         tab_perfil = self.add("Perfil")
 
+        left_frame = LeftFrame(tab_biblioteca)
+        left_frame.pack(side = 'left', fill = 'y')
+
+class LeftFrame(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+
         #region ~~BIBLIOTECA
-        self.entry = ctk.CTkEntry(master = tab_biblioteca,placeholder_text="🔍")
+        self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
         self.entry.pack(padx = 20,fill = 'x')
-
-        #endregion 
-
 
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):

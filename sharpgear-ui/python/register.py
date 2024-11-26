@@ -1,6 +1,5 @@
 import customtkinter as ctk
 import sqlite3
-from biblioteca import BibliotecaFrame
 from tab_view import TabView
 
 def add_usuario(master):
@@ -57,11 +56,12 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.geometry('1280x720')
 
     laura = TabView(janela_principal)
-    laura.pack()
+    laura.pack(side = 'left',fill = 'y')
 
+    '''
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)
     mainframe.pack(side = "left",fill = 'y')
-
+    '''
     janela_principal.mainloop()
     
 class RegisterFrame(ctk.CTkFrame):
