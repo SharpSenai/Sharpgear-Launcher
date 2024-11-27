@@ -1,6 +1,8 @@
 import customtkinter as ctk
 from PIL import Image
 
+imagem_snl = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\snl_image_placeholder.png"), size=(700, 700))
+
 class TabView(ctk.CTkTabview):
     def __init__(self,master):
         super().__init__(master)
@@ -19,7 +21,8 @@ class LeftFrame(ctk.CTkFrame):
         #region ~~BIBLIOTECA
         self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
         self.entry.pack(padx = 20,fill = 'x')
-
+        
+        
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
         super().__init__(master)

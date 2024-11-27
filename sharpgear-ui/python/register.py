@@ -20,7 +20,7 @@ def add_usuario(master):
         master.destroy()  # Fecha a janela de registro
         print("😜")
 
-        abrir_janela_principal(user  )  # Chama a função para abrir a janela principal
+        abrir_janela_principal(user)  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
         print("Erro ao inserir usuário no banco de dados.")
     finally:
@@ -42,7 +42,7 @@ def verificar_usuario(master):
         
         if resultado:
             abrir_janela_principal(resultado[0])
-            master.destroy()
+            #master.destroy()
         else:
             print("Login de usuario errado !!")
 
@@ -57,7 +57,6 @@ def abrir_janela_principal(nome_usuario):
 
     laura = TabView(janela_principal)
     laura.pack(side = 'left',fill = 'y')
-
     '''
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)
     mainframe.pack(side = "left",fill = 'y')
@@ -99,6 +98,5 @@ class RegisterWindow(ctk.CTkToplevel):
         self.title('Sharpgear Launcher - Registro')
         self.geometry('960x540')
         self.resizable(False, False)
-        
         self.register_frame = RegisterFrame(self)
         self.register_frame.pack(side='left', fill='y')
