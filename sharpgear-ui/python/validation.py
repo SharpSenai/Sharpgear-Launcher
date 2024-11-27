@@ -8,3 +8,9 @@ def validate_email(email):
 
 def validate_password(password):
     return re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$', password)
+
+def validate_persona(persona):
+    return re.match(r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$", persona)
+    
+def validate_birthday(birthday):
+    return re.match(r"^(0[1-9]|[12][0-9]|3[01])([ /]?)(0[1-9]|1[0-2])\2(\d{4})$", birthday)
