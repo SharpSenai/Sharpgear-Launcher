@@ -16,9 +16,20 @@ class LeftFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
 
+        
         #region ~~BIBLIOTECA
         self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
         self.entry.pack(padx = 20,fill = 'x')
+        
+        def combobox_callback(choice):
+            print("combobox dropdown clicked:", choice)
+
+        self.combobox = ctk.CTkComboBox(master=self,values=["hell-o word", "xvideo"],
+                                        command=combobox_callback, width=220)
+        self.combobox.set("my games ")    
+        self.combobox.pack(padx = 25, pady = 30)
+
+    
 
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
