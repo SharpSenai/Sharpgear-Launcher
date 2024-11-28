@@ -17,21 +17,17 @@ class TabView(ctk.CTkTabview):
 class LeftFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
-
-        
-        #region ~~BIBLIOTECA
-        self.entry = ctk.CTkEntry(self,placeholder_text="🔍")
-        self.entry.pack(padx = 20,fill = 'x')
         
         def combobox_callback(choice):
             print("combobox dropdown clicked:", choice)
 
-        self.combobox = ctk.CTkComboBox(master=self,values=["hell-o word", "xvideo"],
+        self.combobox = ctk.CTkComboBox(master=self,values=["Surv N Live", "Hell-o World","Darkness Trigger"],
                                         command=combobox_callback, width=220)
-        self.combobox.set("my games ")    
-        self.combobox.pack(padx = 25, pady = 30)
+        self.combobox.set("🔍")    
+        self.combobox.grid(row = 0, column = 0,padx = 15, pady = 10)
 
-    
+        self.label = ctk.CTkLabel(self,text="TEST")
+        self.label.grid(row = 0, column = 1)
 
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):

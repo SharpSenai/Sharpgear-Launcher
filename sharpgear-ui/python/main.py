@@ -17,9 +17,9 @@ class LoginWindow(ctk.CTkToplevel):
         super().__init__()
         print("Janela login aberta")
         self.title('Sharpgear Launcher - Login')
-        self.geometry('960x540')
+        self.geometry('0x0')
         self.resizable(False, False)
-        self._set_scaling(5, 1.5)
+
 
         # Frame Principal.
         self.login_frame = LoginFrame(master=self)
