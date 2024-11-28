@@ -19,7 +19,6 @@ class LoginWindow(ctk.CTkToplevel):
         self.title('Sharpgear Launcher - Login')
         self.geometry('960x540')
         self.resizable(False, False)
-        self._set_scaling(5, 1.5)
 
         # Frame Principal.
         self.login_frame = LoginFrame(master=self)
