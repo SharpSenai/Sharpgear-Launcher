@@ -9,7 +9,7 @@ ctk.set_widget_scaling(1.1)
 class Main(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.geometry('500x500')
+        self.geometry('0x0')
         LoginWindow()
 
 class LoginWindow(ctk.CTkToplevel):
