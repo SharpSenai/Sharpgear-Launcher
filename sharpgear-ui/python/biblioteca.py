@@ -1,3 +1,4 @@
+
 import customtkinter as ctk
 import sqlite3
 import os
@@ -68,8 +69,8 @@ class UpperFrame(ctk.CTkFrame):
             nome, user, email, senha, nasc = dados
 
             ctk.CTkLabel(perfil_window, text=f"Nome: {nome}", font=("Arial", 18)).pack(pady=10)
-            ctk.CTkLabel(perfil_window, text=f"Usuário: {user}", font=("Arial", 16)).pack(pady=10)
-            ctk.CTkLabel(perfil_window, text=f"Email: {email}", font=("Arial", 16)).pack(pady=10)
+            ctk.CTkLabel(perfil_window, text=f"User: {user}", font=("Arial", 16)).pack(pady=10)
+            ctk.CTkLabel(perfil_window, text=f"email: {email}", font=("Arial", 16)).pack(pady=10)
             ctk.CTkLabel(perfil_window, text=f"Senha: {senha}", font=("Arial", 16)).pack(pady=10)
             ctk.CTkLabel(perfil_window, text=f"nasc: {nasc}", font=("Arial", 16)).pack(pady=10)
             print(perfil_window)
