@@ -55,7 +55,7 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    laura = TabView(janela_principal)
+    laura = TabView(janela_principal,nome_usuario)
     laura.pack(side = 'left',fill = 'y')
     '''
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)

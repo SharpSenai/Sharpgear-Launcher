@@ -35,7 +35,17 @@ def add_jogo_biblioteca(_user, _game):
     
     conn.close()
 
+def list_all_games():
+    conn = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM games")
+    games = cursor.fetchall()
+    for game in games:
+        print(f"Nome: {game[0]}")
+    conn.close()
 
+# Exemplo de uso
+list_all_games()
 ##Criar Tabela Usuários
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS users ( 
@@ -74,7 +84,33 @@ add_jogos("Surv N Live", "Sharpgear Underground","teste")
 add_jogos("Hell-O World", "Sharpgear Underground","teste2")
 add_jogos("Darkness Trigger", "Sharpgear Underground","teste3")
 
-add_jogo_biblioteca("AdriN","Surv N Live")
+add_jogo_biblioteca("adr","Surv N Live")
 
+list_all_games()
+
+def list_user_library(username):
+    conn = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT g.name
+        FROM bibliotecas ul
+        JOIN users u ON ul.user_id = u.id
+        JOIN games g ON ul.game_id = g.id
+        WHERE u.user = ?
+    """, (username,))
+    
+    games = cursor.fetchall()
+    if games:
+        print(f"Biblioteca de '{username}':")
+        for game in games:
+            print(f"Nome: {game[0]}")
+    else:
+        print(f"'{username}' não tem jogos na biblioteca.")
+    
+    conn.close()
+
+
+list_user_library("adr")
 connection.commit()
 connection.close()
