@@ -11,23 +11,33 @@ class TabView(ctk.CTkTabview):
         tab_loja = self.add("Loja")
         tab_perfil = self.add("Perfil")
 
-        left_frame = LeftFrame(tab_biblioteca)
-        left_frame.pack(side = 'left', fill = 'y')
+        frame_biblioteca = FrameBiblioteca(tab_biblioteca)
+        frame_biblioteca.pack(side = 'left', fill = 'y')
 
-class LeftFrame(ctk.CTkFrame):
+        frame_perfil = FramePerfil(tab_perfil)
+        frame_perfil.pack()
+
+class FrameBiblioteca(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         
         def combobox_callback(choice):
             print("combobox dropdown clicked:", choice)
 
-        self.combobox = ctk.CTkComboBox(master=self,values=["Surv N Live", "Hell-o World","Darkness Trigger"],
+        self.combobox = ctk.CTkComboBox(master=self,values=[],
                                         command=combobox_callback, width=220)
         self.combobox.set("🔍")    
         self.combobox.grid(row = 0, column = 0,padx = 15, pady = 10)
 
         self.label = ctk.CTkLabel(self,text="TEST")
         self.label.grid(row = 0, column = 1)
+
+class FramePerfil(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.label = ctk.CTkLabel(self,text="Teste Perfil")
+        self.label.grid(row = 0, column = 0)
 
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
