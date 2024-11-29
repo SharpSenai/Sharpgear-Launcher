@@ -3,6 +3,7 @@ from PIL import Image
 import sqlite3
 imagem_snl = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\snl_image_placeholder.png"), size=(700, 700))
 
+
 class TabView(ctk.CTkTabview):
     def __init__(self,master,_user_id):
         super().__init__(master)
@@ -53,11 +54,52 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.label.grid(row = 0, column = 1)
 
 class FramePerfil(ctk.CTkFrame):
-    def __init__(self, master,_user):
+    def __init__(self,master,_user_id):
         super().__init__(master)
+        
+        user_data = self.buscar_dados_usuario(_user_id)
+        
+        if not user_data:
+            user_data = {"nome": "Usuário não encontrado", "email": "N/A", "senha": "N/A", "nasc": "N/A" ,  "senha": "N/A"}
+        
+        self.label_nome = ctk.CTkLabel(self, text=f"Nome: {user_data ['nome']}")
+        self.label_email = ctk.CTkLabel(self, text=f"Email: {user_data['email']}")
+        self.label_nasc = ctk.CTkLabel(self, text=f"Data de Nascimento: {user_data['nasc']}")
+        self.label_senha = ctk.CTkLabel(self, text=f"Senha: {user_data['senha']}")
+        
+        self.label_nome.pack(pady=5)
+        self.label_email.pack(pady=5)
+        self.label_nasc.pack(pady=5)
+        self.label_senha.pack(pady=5)
+    
+    def buscar_dados_usuario(self, username):
+        """Busca os dados do usuário no banco de dados pelo nome de usuário."""
+        try:
+            # Conectando ao banco de dados
+            conexao = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
+            cursor = conexao.cursor()
 
-        self.label = ctk.CTkLabel(self,text=_user)
-        self.label.grid(row = 0, column = 0)
+            # Query para buscar informações do usuário
+            query = "SELECT nome, email, senha, nasc FROM users WHERE user = ?"
+            cursor.execute(query, (username,))
+            resultado = cursor.fetchone()
+
+            # Fechar conexão
+            conexao.close()
+
+            # Retornar os dados como um dicionário, se encontrado
+            if resultado:
+                return {
+                    "nome": resultado[0],
+                    "email": resultado[1],
+                    "senha": resultado[2],
+                    "nasc": resultado[3]
+                }
+
+        except sqlite3.Error as e:
+            print(f"Erro ao acessar o banco de dados: {e}")
+
+        return None
 
 class UpperFrame(ctk.CTkFrame):
     def __init__(self,master,nome_user):
