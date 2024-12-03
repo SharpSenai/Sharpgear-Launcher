@@ -4,6 +4,10 @@ from register import verificar_usuario
 class LoginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,)
+        
+        def fazer_login(_self):
+            verificar_usuario(_self)
+            
         #region ~~~~Labels~~~~
         #"Seja Bem-Vindo"
         self.label = ctk.CTkLabel(self,text='SEJA BEM VINDO!',font=('Codec Cold Trial',25,'bold'))
@@ -32,5 +36,5 @@ class LoginFrame(ctk.CTkFrame):
         #endregion
         
         # Botão para Entrar
-        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar',command = lambda: verificar_usuario(self))
+        self.btn_cadastrar = ctk.CTkButton(self, text='Entrar',command = lambda: fazer_login(self))
         self.btn_cadastrar.grid(row= 9,column = 0,padx = 20, pady = 10, sticky = 'w',)

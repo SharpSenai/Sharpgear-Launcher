@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import sqlite3
 from tab_view import TabView
+from PIL import Image
 
 def add_usuario(master):
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
@@ -32,7 +33,6 @@ def verificar_usuario(master):
 
     nomeEmail = master.ent_email.get()
     senha = master.ent_senha.get()
-
     print(nomeEmail, senha)
 
     try:
@@ -42,7 +42,6 @@ def verificar_usuario(master):
         
         if resultado:
             abrir_janela_principal(resultado[0])
-            #master.destroy()
         else:
             print("Login de usuario errado !!")
 
@@ -51,9 +50,13 @@ def verificar_usuario(master):
 
 def abrir_janela_principal(nome_usuario):
     print("🎶")
-    janela_principal = ctk.CTk()
+    janela_principal = ctk.CTkToplevel()
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
+
+    janela_principal.focus_force()
+    janela_principal.attributes("-topmost", True)
+    #janela_principal.attributes("-topmost", False)  # Remove o comportamento "sempre no topo" após abrir
 
     laura = TabView(janela_principal,nome_usuario)
     laura.pack(side = 'left',fill = 'y')
@@ -61,6 +64,9 @@ def abrir_janela_principal(nome_usuario):
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)
     mainframe.pack(side = "left",fill = 'y')
     '''
+    
+
+
     janela_principal.mainloop()
     
 class RegisterFrame(ctk.CTkFrame):

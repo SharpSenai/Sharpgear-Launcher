@@ -19,9 +19,9 @@ class LoginWindow(ctk.CTkToplevel):
         self.title('Sharpgear Launcher - Login')
         self.geometry('960x540')
         self.resizable(False, False)
-
+        self.attributes("-topmost", False)  # Remove o comportamento "sempre no topo" após abrir
         # Frame Principal.
-        self.login_frame = LoginFrame(master=self)
+        self.login_frame = LoginFrame(self)
         self.login_frame.pack(side="left", fill="y")
 
         # Logo Sharpgear Grande

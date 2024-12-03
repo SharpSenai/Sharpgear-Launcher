@@ -4,7 +4,6 @@ import sqlite3
 
 imagem_snl = ctk.CTkImage(dark_image=Image.open("sharpgear-ui/images/snl_image_placeholder.png"), size=(700, 700))
 
-
 class TabView(ctk.CTkTabview):
     def __init__(self, master, _user_id):
         super().__init__(master)
@@ -55,14 +54,20 @@ class FrameBiblioteca(ctk.CTkFrame):
 
         # Combobox para busca de jogos
         self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal")
-        self.combobox.grid(row=0, column=0, padx=15, pady=10)
+        self.combobox.grid(row=0, column=0, padx=15, pady=10,sticky = "n")
 
         self.combobox.set("")
         self.combobox.bind("<KeyRelease>",procurar_jogos)
 
-        # Label de exemplo
-        self.label = ctk.CTkLabel(self, text="TEST")
-        self.label.grid(row=0, column=1)
+        # Logo Sharpgear Grande
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\\images\\snl_image_placeholder.png"), size=(960, 540))
+        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
+        self.imagem_label_grande.grid(row = 0, column = 1)
+
+        # Logo Sharpgear Grande
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\gEar alpha3.png"), size=(960, 540))
+        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
+        self.imagem_label_grande.place(x=0, y=-50)
 
 
 class FramePerfil(ctk.CTkFrame):
