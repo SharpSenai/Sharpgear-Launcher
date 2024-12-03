@@ -36,9 +36,9 @@ def verificar_usuario(master):
     print(nomeEmail, senha)
 
     try:
-        cursor.execute('SELECT user FROM users WHERE (user = ? OR email = ?) AND senha = ?',(nomeEmail,nomeEmail,senha))
+        cursor.execute('SELECT id, user FROM users WHERE (user = ? OR email = ?) AND senha = ?',(nomeEmail,nomeEmail,senha))
         resultado = cursor.fetchone()
-        print(cursor.fetchone())
+        print(resultado[0], resultado[1])
         
         if resultado:
             abrir_janela_principal(resultado[0])

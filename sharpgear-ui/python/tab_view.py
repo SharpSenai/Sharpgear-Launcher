@@ -1,9 +1,11 @@
 import customtkinter as ctk
 from PIL import Image
 import sqlite3
+import json
+import webbrowser
 
 imagem_snl = ctk.CTkImage(dark_image=Image.open("sharpgear-ui/images/snl_image_placeholder.png"), size=(700, 700))
-
+            
 class TabView(ctk.CTkTabview):
     def __init__(self, master, _user_id):
         super().__init__(master)
@@ -31,6 +33,7 @@ class FrameBiblioteca(ctk.CTkFrame):
             self.combobox.configure(values=jogos)
 
         def procurar_jogos(event=None):
+            print(self.user_id)
             consulta = self.combobox.get()  # Texto digitado na combobox
             conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
             cursor = conn.cursor()
@@ -45,6 +48,7 @@ class FrameBiblioteca(ctk.CTkFrame):
                 """, (self.user_id, consulta + '%'))
                 resultados = cursor.fetchall()
                 print('wa')
+                print(resultados)
                 atualizar_combobox(resultados)  # Atualiza a combobox com os resultados
             except sqlite3.Error as e:
                 print("Erro ao buscar jogos na biblioteca:", e)
@@ -64,10 +68,7 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
         self.imagem_label_grande.grid(row = 0, column = 1)
 
-        # Logo Sharpgear Grande
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\gEar alpha3.png"), size=(960, 540))
-        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
-        self.imagem_label_grande.place(x=0, y=-50)
+
 
 
 class FramePerfil(ctk.CTkFrame):

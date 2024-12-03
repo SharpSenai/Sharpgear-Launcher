@@ -85,6 +85,7 @@ add_jogos("Hell-O World", "Sharpgear Underground","teste2")
 add_jogos("Darkness Trigger", "Sharpgear Underground","teste3")
 
 add_jogo_biblioteca("adr","Surv N Live")
+add_jogo_biblioteca("adr","Hell-O World")
 
 list_all_games()
 
