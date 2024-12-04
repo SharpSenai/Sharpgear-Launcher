@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
 import sqlite3
+import webbrowser
 
 class TabView(ctk.CTkTabview):
     def __init__(self, master, _user_id):
@@ -30,10 +31,38 @@ class FrameBiblioteca(ctk.CTkFrame):
     def __init__(self, master, _user_id):
         super().__init__(master)
         self.user_id = _user_id
+        self.jogo_selecionado = None
 
         def atualizar_combobox(_resultados):
             jogos = [row[0] for row in _resultados]
             self.combobox.configure(values=jogos)
+
+        def selecionarJogo(_nome):
+            conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+
+            try: 
+                cursor.execute("""
+                               SELECT *
+                               FROM games
+                               WHERE name = ?
+                               """,(_nome,))
+                
+                result = cursor.fetchone()
+                
+                if result:
+                    self.jogo_selecionado = dict(result)
+                    print(self.jogo_selecionado)
+                else:
+                    print(f"Jogo não encontrado {_nome}")
+            except sqlite3.Error as e:
+                print("Erro ao buscar jogos na biblioteca:", e)
+            finally:
+                conn.close()
+
+ #       def atualizarInfo():
+ #           pass
 
         def procurar_jogos(event=None):
             consulta = self.combobox.get()  # Texto digitado na combobox
@@ -56,9 +85,12 @@ class FrameBiblioteca(ctk.CTkFrame):
             finally:
                 conn.close()
 
+        def iniciarJogo():
+            if self.jogo_selecionado:
+                webbrowser.open(self.jogo_selecionado["gameURL"], new=1)
 
         # Combobox para busca de jogos
-        self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal",font=('Poppins', 13,'bold'))
+        self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal",font=('Poppins', 13,'bold'), command=selecionarJogo)
         self.combobox.grid(row=0, column=0, padx=15, pady=10,sticky = "n")
 
         self.combobox.set("")
@@ -69,7 +101,7 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
         self.imagem_label_grande.grid(row = 0, column = 1)
 
-        self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'))
+        self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command=iniciarJogo)
         self.botao.place(x= 950,y=400)
 
 class FramePerfil(ctk.CTkFrame):

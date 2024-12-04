@@ -7,10 +7,10 @@ connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
 print(connection.total_changes)
 cursor = connection.cursor()
 
-def add_jogos(_nome,_dev,_desc):
+def add_jogos(_nome,_dev,_desc,_url):
     connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO games (name,developer,desc) VALUES (?, ?, ?)", (_nome, _dev, _desc))
+    cursor.execute("INSERT INTO games (name,developer,desc, gameURL) VALUES (?, ?, ?, ?)", (_nome, _dev, _desc, _url))
     connection.commit()
     print("jogo adicionado")
     connection.close()
@@ -64,7 +64,8 @@ cursor.execute('''
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                name TEXT NOT NULL,
                developer TEXT,
-               desc TEXT
+               desc TEXT,
+               gameURL TEXT
                )
 ''')
 
@@ -79,13 +80,12 @@ cursor.execute('''
                 )
 ''')
 
+add_jogos("Surv N Live", "Sharpgear Underground","teste", "https://google.com")
+add_jogos("Hell-O World", "Sharpgear Underground","teste2", "https://gx.games/pt-br/games/mzuh34/hell-o-world/")
+add_jogos("Darkness Trigger", "Sharpgear Underground","teste3", "https://youtube.com")
 
-add_jogos("Surv N Live", "Sharpgear Underground","teste")
-add_jogos("Hell-O World", "Sharpgear Underground","teste2")
-add_jogos("Darkness Trigger", "Sharpgear Underground","teste3")
-
-add_jogo_biblioteca("adr","Surv N Live")
-add_jogo_biblioteca("adr","Hell-O World")
+add_jogo_biblioteca("admin","Surv N Live")
+add_jogo_biblioteca("admin","Hell-O World")
 
 list_all_games()
 
@@ -112,6 +112,6 @@ def list_user_library(username):
     conn.close()
 
 
-list_user_library("adr")
+list_user_library("admin")
 connection.commit()
 connection.close()
