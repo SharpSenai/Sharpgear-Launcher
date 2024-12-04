@@ -3,8 +3,10 @@ from register import RegisterWindow
 from login_frame import LoginFrame
 from PIL import Image
 
-ctk.set_appearance_mode('Dark')
+
 ctk.set_widget_scaling(1.1)
+ctk.set_default_color_theme("sharpgear-ui/themes/sharpgear.json")
+
 
 class Main(ctk.CTk):
     def __init__(self):
@@ -25,9 +27,10 @@ class LoginWindow(ctk.CTkToplevel):
         self.login_frame.pack(side="left", fill="y")
 
         # Logo Sharpgear Grande
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\\images\\gEar alpha3.png"), size=(700, 700))
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\gear_darkgray.png"), size=(700, 700))
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
-        self.imagem_label_grande.place(x=490, y=-50)
+        self.imagem_label_grande.place(x=450, y=-70)
+
 
     def abrir_registro(self):
         self.withdraw()  # Oculta a janela de login

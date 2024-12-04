@@ -1,19 +1,22 @@
 import customtkinter as ctk
 from PIL import Image
 import sqlite3
-import json
-import webbrowser
 
-imagem_snl = ctk.CTkImage(dark_image=Image.open("sharpgear-ui/images/snl_image_placeholder.png"), size=(700, 700))
-            
 class TabView(ctk.CTkTabview):
     def __init__(self, master, _user_id):
         super().__init__(master)
 
+        self.configure(anchor = "w",fg_color = "transparent")
+
         # Criação das abas
-        tab_biblioteca = self.add("Biblioteca")
-        tab_loja = self.add("Loja")
-        tab_perfil = self.add("Perfil")
+        tab_biblioteca = self.add("ㅤBibliotecaㅤ")
+        tab_loja = self.add("ㅤLojaㅤ")
+        tab_perfil = self.add("ㅤPerfilㅤ")
+
+        for tab_button in self._segmented_button._buttons_dict.values():
+            tab_button.grid_configure(padx=20)
+            tab_button.configure(font=("Poppins", 16, "bold"))  # Alterando a fonte
+
 
         # Inicialização dos frames dentro de cada aba
         frame_biblioteca = FrameBiblioteca(tab_biblioteca, _user_id)
@@ -33,7 +36,6 @@ class FrameBiblioteca(ctk.CTkFrame):
             self.combobox.configure(values=jogos)
 
         def procurar_jogos(event=None):
-            print(self.user_id)
             consulta = self.combobox.get()  # Texto digitado na combobox
             conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
             cursor = conn.cursor()
@@ -48,7 +50,6 @@ class FrameBiblioteca(ctk.CTkFrame):
                 """, (self.user_id, consulta + '%'))
                 resultados = cursor.fetchall()
                 print('wa')
-                print(resultados)
                 atualizar_combobox(resultados)  # Atualiza a combobox com os resultados
             except sqlite3.Error as e:
                 print("Erro ao buscar jogos na biblioteca:", e)
@@ -57,19 +58,19 @@ class FrameBiblioteca(ctk.CTkFrame):
 
 
         # Combobox para busca de jogos
-        self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal")
+        self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal",font=('Poppins', 13,'bold'))
         self.combobox.grid(row=0, column=0, padx=15, pady=10,sticky = "n")
 
         self.combobox.set("")
         self.combobox.bind("<KeyRelease>",procurar_jogos)
 
-        # Logo Sharpgear Grande
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\\images\\snl_image_placeholder.png"), size=(960, 540))
+        #Imagem do jogo
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\\images\\snl_image_placeholder.png"), size=(960, 750))
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
         self.imagem_label_grande.grid(row = 0, column = 1)
 
-
-
+        self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'))
+        self.botao.place(x= 950,y=400)
 
 class FramePerfil(ctk.CTkFrame):
     def __init__(self, master, _user):

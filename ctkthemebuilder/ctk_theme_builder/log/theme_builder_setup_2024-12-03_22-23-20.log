@@ -1,0 +1,266 @@
+Checking Python interpreter version...
+Starting CTk Theme Builder deployment.
+
+Operating System: Windows 10.0.22635 10.0.22635
+Installation base location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder
+Creating application home: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder
+
+======================== KEY LOCATION MAPPINGS ==========================
+Package Location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder-3.1.0.zip
+App Home = C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder
+Assets Location = C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\assets
+User Theme Location = C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\user_themes
+Log Location = C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\log
+=========================================================================
+
+Creating application assets location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\assets
+Creating application assets location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\log
+Creating application temp location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\tmp
+Creating application data location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\assets\data
+Creating user themes location: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\user_themes
+Checking for repository: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\assets\data\ctk_theme_builder.db
+Greenfield installation - creating a new repository.
+Unpacking package: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder-3.1.0.zip to: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder
+Inspecting CTk Theme Builder application home directory...
+Install base, C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder, looks fine.
+
+Launching build_app.bat
+
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder>echo "DCCM Build started..." 
+"DCCM Build started..."
+
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder>set PROG_PATH="C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\" 
+
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder>py -m venv venv 
+
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder>set APP_ENV="C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\"\venv 
+
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder>call "C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder\"\venv\Scripts\activate.bat 
+Collecting virtualenv
+  Downloading virtualenv-20.28.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting distlib<1,>=0.3.7 (from virtualenv)
+  Downloading distlib-0.3.9-py2.py3-none-any.whl.metadata (5.2 kB)
+Collecting filelock<4,>=3.12.2 (from virtualenv)
+  Downloading filelock-3.16.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting platformdirs<5,>=3.9.1 (from virtualenv)
+  Downloading platformdirs-4.3.6-py3-none-any.whl.metadata (11 kB)
+Downloading virtualenv-20.28.0-py3-none-any.whl (4.3 MB)
+   ---------------------------------------- 4.3/4.3 MB 11.4 MB/s eta 0:00:00
+Downloading distlib-0.3.9-py2.py3-none-any.whl (468 kB)
+   --------------------------------------- 469.0/469.0 kB 14.8 MB/s eta 0:00:00
+Downloading filelock-3.16.1-py3-none-any.whl (16 kB)
+Downloading platformdirs-4.3.6-py3-none-any.whl (18 kB)
+Installing collected packages: distlib, platformdirs, filelock, virtualenv
+Successfully installed distlib-0.3.9 filelock-3.16.1 platformdirs-4.3.6 virtualenv-20.28.0
+
+[notice] A new release of pip is available: 24.0 -> 24.3.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+Collecting colorharmonies==1.0.5 (from -r requirements.txt (line 1))
+  Using cached colorharmonies-1.0.5-py3-none-any.whl.metadata (607 bytes)
+Collecting colour==0.1.5 (from -r requirements.txt (line 2))
+  Using cached colour-0.1.5-py2.py3-none-any.whl.metadata (18 kB)
+Collecting contourpy==1.2.0 (from -r requirements.txt (line 3))
+  Using cached contourpy-1.2.0-cp312-cp312-win_amd64.whl.metadata (5.8 kB)
+Collecting CTkMessagebox==2.5 (from -r requirements.txt (line 4))
+  Using cached CTkMessagebox-2.5-py3-none-any.whl.metadata (7.4 kB)
+Collecting CTkToolTip==0.8 (from -r requirements.txt (line 5))
+  Using cached CTkToolTip-0.8-py3-none-any.whl.metadata (3.7 kB)
+Collecting customtkinter==5.2.2 (from -r requirements.txt (line 6))
+  Using cached customtkinter-5.2.2-py3-none-any.whl.metadata (677 bytes)
+Collecting cycler==0.12.1 (from -r requirements.txt (line 7))
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting darkdetect==0.8.0 (from -r requirements.txt (line 8))
+  Using cached darkdetect-0.8.0-py3-none-any.whl.metadata (3.6 kB)
+Collecting distro==1.9.0 (from -r requirements.txt (line 9))
+  Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting fonttools==4.49.0 (from -r requirements.txt (line 10))
+  Using cached fonttools-4.49.0-cp312-cp312-win_amd64.whl.metadata (162 kB)
+Collecting importlib-resources==6.1.1 (from -r requirements.txt (line 11))
+  Using cached importlib_resources-6.1.1-py3-none-any.whl.metadata (4.1 kB)
+Collecting kiwisolver==1.4.5 (from -r requirements.txt (line 12))
+  Using cached kiwisolver-1.4.5-cp312-cp312-win_amd64.whl.metadata (6.5 kB)
+Collecting loguru==0.7.2 (from -r requirements.txt (line 13))
+  Using cached loguru-0.7.2-py3-none-any.whl.metadata (23 kB)
+Collecting matplotlib==3.8.3 (from -r requirements.txt (line 14))
+  Using cached matplotlib-3.8.3-cp312-cp312-win_amd64.whl.metadata (5.9 kB)
+Collecting numpy==1.26.4 (from -r requirements.txt (line 15))
+  Using cached numpy-1.26.4-cp312-cp312-win_amd64.whl.metadata (61 kB)
+Collecting packaging==23.2 (from -r requirements.txt (line 16))
+  Using cached packaging-23.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting pathvalidate==3.2.0 (from -r requirements.txt (line 17))
+  Using cached pathvalidate-3.2.0-py3-none-any.whl.metadata (11 kB)
+Collecting pillow==10.2.0 (from -r requirements.txt (line 18))
+  Using cached pillow-10.2.0-cp312-cp312-win_amd64.whl.metadata (9.9 kB)
+Collecting pyparsing==3.1.1 (from -r requirements.txt (line 19))
+  Using cached pyparsing-3.1.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting pyperclip==1.8.2 (from -r requirements.txt (line 20))
+  Using cached pyperclip-1.8.2-py3-none-any.whl
+Collecting python-dateutil==2.8.2 (from -r requirements.txt (line 21))
+  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl.metadata (8.2 kB)
+Collecting scikit-build==0.17.6 (from -r requirements.txt (line 22))
+  Using cached scikit_build-0.17.6-py3-none-any.whl.metadata (14 kB)
+Collecting six==1.16.0 (from -r requirements.txt (line 23))
+  Using cached six-1.16.0-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting tomli==2.0.1 (from -r requirements.txt (line 24))
+  Using cached tomli-2.0.1-py3-none-any.whl.metadata (8.9 kB)
+Collecting zipp==3.15.0 (from -r requirements.txt (line 25))
+  Using cached zipp-3.15.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting colorama>=0.3.4 (from loguru==0.7.2->-r requirements.txt (line 13))
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting win32-setctime>=1.0.0 (from loguru==0.7.2->-r requirements.txt (line 13))
+  Using cached win32_setctime-1.1.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting setuptools>=42.0.0 (from scikit-build==0.17.6->-r requirements.txt (line 22))
+  Downloading setuptools-75.6.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting wheel>=0.32.0 (from scikit-build==0.17.6->-r requirements.txt (line 22))
+  Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+Using cached colorharmonies-1.0.5-py3-none-any.whl (3.6 kB)
+Using cached colour-0.1.5-py2.py3-none-any.whl (23 kB)
+Using cached contourpy-1.2.0-cp312-cp312-win_amd64.whl (187 kB)
+Using cached CTkMessagebox-2.5-py3-none-any.whl (125 kB)
+Using cached CTkToolTip-0.8-py3-none-any.whl (8.1 kB)
+Using cached customtkinter-5.2.2-py3-none-any.whl (296 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Using cached darkdetect-0.8.0-py3-none-any.whl (9.0 kB)
+Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+Using cached fonttools-4.49.0-cp312-cp312-win_amd64.whl (2.2 MB)
+Using cached importlib_resources-6.1.1-py3-none-any.whl (33 kB)
+Using cached kiwisolver-1.4.5-cp312-cp312-win_amd64.whl (56 kB)
+Using cached loguru-0.7.2-py3-none-any.whl (62 kB)
+Using cached matplotlib-3.8.3-cp312-cp312-win_amd64.whl (7.6 MB)
+Using cached numpy-1.26.4-cp312-cp312-win_amd64.whl (15.5 MB)
+Using cached packaging-23.2-py3-none-any.whl (53 kB)
+Using cached pathvalidate-3.2.0-py3-none-any.whl (23 kB)
+Using cached pillow-10.2.0-cp312-cp312-win_amd64.whl (2.6 MB)
+Using cached pyparsing-3.1.1-py3-none-any.whl (103 kB)
+Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+Using cached scikit_build-0.17.6-py3-none-any.whl (84 kB)
+Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Using cached tomli-2.0.1-py3-none-any.whl (12 kB)
+Using cached zipp-3.15.0-py3-none-any.whl (6.8 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading setuptools-75.6.0-py3-none-any.whl (1.2 MB)
+   ---------------------------------------- 1.2/1.2 MB 6.5 MB/s eta 0:00:00
+Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+   ---------------------------------------- 72.5/72.5 kB 3.9 MB/s eta 0:00:00
+Using cached win32_setctime-1.1.0-py3-none-any.whl (3.6 kB)
+Installing collected packages: pyperclip, colour, zipp, win32-setctime, wheel, tomli, six, setuptools, pyparsing, pillow, pathvalidate, packaging, numpy, kiwisolver, importlib-resources, fonttools, distro, darkdetect, cycler, CTkToolTip, colorharmonies, colorama, scikit-build, python-dateutil, loguru, customtkinter, contourpy, matplotlib, CTkMessagebox
+Successfully installed CTkMessagebox-2.5 CTkToolTip-0.8 colorama-0.4.6 colorharmonies-1.0.5 colour-0.1.5 contourpy-1.2.0 customtkinter-5.2.2 cycler-0.12.1 darkdetect-0.8.0 distro-1.9.0 fonttools-4.49.0 importlib-resources-6.1.1 kiwisolver-1.4.5 loguru-0.7.2 matplotlib-3.8.3 numpy-1.26.4 packaging-23.2 pathvalidate-3.2.0 pillow-10.2.0 pyparsing-3.1.1 pyperclip-1.8.2 python-dateutil-2.8.2 scikit-build-0.17.6 setuptools-75.6.0 six-1.16.0 tomli-2.0.1 wheel-0.45.1 win32-setctime-1.1.0 zipp-3.15.0
+
+[notice] A new release of pip is available: 24.0 -> 24.3.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+"Done."
+
+Updating the CTk Theme Builder repository:-
+Existing repository appears to be version 1.9.9...
+No upgrade actions pending.
+Applying SQL Id: 001  :- Initialise theme author (Succeeded)
+Applying SQL Id: 002  :- Control Panel theme (Succeeded)
+Applying SQL Id: 003  :- Control Panel appearance mode (Succeeded)
+Applying SQL Id: 004  :- User themes location (Succeeded)
+Applying SQL Id: 005  :- Tooltips preference (Succeeded)
+Applying SQL Id: 006  :- Palette labels preference (Succeeded)
+Applying SQL Id: 007  :- Single click paste (Succeeded)
+Applying SQL Id: 008  :- Auto contrast differential (Succeeded)
+Applying SQL Id: 009  :- Harmony contrast differential (Succeeded)
+Applying SQL Id: 010  :- Shade adjust differential (Succeeded)
+Applying SQL Id: 011  :- Render disabled (Succeeded)
+Applying SQL Id: 012  :- Control panel appearance mode (Succeeded)
+Applying SQL Id: 013  :- Remembered widget properties view (Succeeded)
+Applying SQL Id: 014  :- Remembered theme view (Succeeded)
+Applying SQL Id: 015  :- CTk compatability (Succeeded)
+Applying SQL Id: 016  :- Control panel geometry (Succeeded)
+Applying SQL Id: 017  :- Widget Geometry dialog geometry (Succeeded)
+Applying SQL Id: 018  :- Colour harmonics panel geometry (Succeeded)
+Applying SQL Id: 019  :- Preferences dialog geometry (Succeeded)
+Applying SQL Id: 020  :- Preview panel geometry (Succeeded)
+Applying SQL Id: 020a  :- Preview panel geometry (Succeeded)
+Applying SQL Id: 021  :- Colour palette Scratch 1 (Succeeded)
+Applying SQL Id: 022  :- Colour palette Scratch 2 (Succeeded)
+Applying SQL Id: 023  :- Colour palette Scratch 3 (Succeeded)
+Applying SQL Id: 024  :- Colour palette Scratch 4 (Succeeded)
+Applying SQL Id: 025  :- Colour palette Scratch 5 (Succeeded)
+Applying SQL Id: 026  :- Colour palette Scratch 6 (Succeeded)
+Applying SQL Id: 027  :- Colour palette Borders (Succeeded)
+Applying SQL Id: 028  :- Colour palette Entry (Succeeded)
+Applying SQL Id: 029  :- Colour palette Button (Succeeded)
+Applying SQL Id: 030  :- Colour palette Button Hover (Succeeded)
+Applying SQL Id: 031  :- Colour palette Frame (Top) (Succeeded)
+Applying SQL Id: 032  :- Colour palette Frame (Base) (Succeeded)
+Applying SQL Id: 033  :- Colour palette Progress (Succeeded)
+Applying SQL Id: 034  :- Colour palette Progress (fg) (Succeeded)
+Applying SQL Id: 035  :- Colour palette Text (Succeeded)
+Applying SQL Id: 036  :- Colour palette Text Disabled (Succeeded)
+Applying SQL Id: 037  :- Initialise cascade colours (Succeeded)
+Applying SQL Id: 038  :- Colour cascade CTkButton/border color (Succeeded)
+Applying SQL Id: 039  :- Colour cascade CTkCheckBox/border color (Succeeded)
+Applying SQL Id: 040  :- Colour cascade Entry/border color (Succeeded)
+Applying SQL Id: 041  :- Colour cascade CTkFrame/border color (Succeeded)
+Applying SQL Id: 042  :- Colour cascade CTkRadioButton/border color (Succeeded)
+Applying SQL Id: 042a  :- Colour cascade CTkTextbox/border color (Succeeded)
+Applying SQL Id: 043  :- Colour cascade CTkComboBox/border color (Succeeded)
+Applying SQL Id: 043a  :- Colour cascade CTkProgressBar/border color (Succeeded)
+Applying SQL Id: 044  :- Colour cascade CTkEntry/fg color (Succeeded)
+Applying SQL Id: 045  :- Colour cascade CTkTextbox/fg color (Succeeded)
+Applying SQL Id: 046  :- Colour cascade CTkComboBox/fg color (Succeeded)
+Applying SQL Id: 047  :- Colour cascade CTkButton/fg color (Succeeded)
+Applying SQL Id: 048  :- Colour cascade CTkSwitch/button color (Succeeded)
+Applying SQL Id: 049  :- Colour cascade CTkSlider/button color (Succeeded)
+Applying SQL Id: 050  :- Colour cascade CTkOptionMenu/button color (Succeeded)
+Applying SQL Id: 051  :- Colour cascade CTkScrollbar/button color (Succeeded)
+Applying SQL Id: 052  :- Colour cascade CTkComboBox/fg color (Succeeded)
+Applying SQL Id: 052a  :- Colour cascade CTkRadioButton/selected button color (Succeeded)
+Applying SQL Id: 052b  :- Colour cascade CTkSegmentedButton/selected button color (Succeeded)
+Applying SQL Id: 053  :- Colour cascade CTkButton/hover color (Succeeded)
+Applying SQL Id: 054  :- Colour cascade CTkRadioButton/button_hover color (Succeeded)
+Applying SQL Id: 054a  :- Colour cascade CTkSwitch/3utton_hover color (Succeeded)
+Applying SQL Id: 055  :- Colour cascade CTkSlider/button_hover color (Succeeded)
+Applying SQL Id: 056  :- Colour cascade CTkOptionMenu/button_hover color (Succeeded)
+Applying SQL Id: 057  :- Colour cascade CTkComboBox/button_hover color (Succeeded)
+Applying SQL Id: 058  :- Colour cascade CTkScrollbar/button_hover color (Succeeded)
+Applying SQL Id: 059a  :- Colour cascade CTkSegmentedButton/selected hover button color (Succeeded)
+Applying SQL Id: 059b  :- Colour cascade CTkSegmentedButton/unselected hover button color (Succeeded)
+Applying SQL Id: 060  :- Colour cascade CTkFrame/top_fg color (Succeeded)
+Applying SQL Id: 060a  :- Colour cascade CTkScrollableFrame/label fg color  (Succeeded)
+Applying SQL Id: 061  :- Colour cascade CTkFrame/fg color (Succeeded)
+Applying SQL Id: 062  :- Colour cascade CTkToplevel/fg color (Succeeded)
+Applying SQL Id: 063  :- Colour cascade CTk/fg color (Succeeded)
+Applying SQL Id: 066  :- Colour cascade CTkSwitch/progress color (Succeeded)
+Applying SQL Id: 067  :- Colour cascade CTkProgressBar/progress color (Succeeded)
+Applying SQL Id: 068  :- Colour cascade CTkSlider/progress color (Succeeded)
+Applying SQL Id: 069  :- Colour cascade CTkSwitch/fg color (Succeeded)
+Applying SQL Id: 070  :- Colour cascade CTkProgressBar/fg color (Succeeded)
+Applying SQL Id: 071  :- Colour cascade CTkSlider/fg color (Succeeded)
+Applying SQL Id: 072  :- Colour cascade CTkButton/text color (Succeeded)
+Applying SQL Id: 073  :- Colour cascade CTkLabel/text color (Succeeded)
+Applying SQL Id: 074  :- Colour cascade CTkEntry/text color (Succeeded)
+Applying SQL Id: 075  :- Colour cascade CTkSwitch/text color (Succeeded)
+Applying SQL Id: 076  :- Colour cascade CTkOptionMenu/text color (Succeeded)
+Applying SQL Id: 077  :- Colour cascade CTkComboBox/text color (Succeeded)
+Applying SQL Id: 078  :- Colour cascade CTkSegmentedButton/text color (Succeeded)
+Applying SQL Id: 079  :- Colour cascade CTkTextbox/text color (Succeeded)
+Applying SQL Id: 081  :- Colour cascade CTkButton/text_color_disabled (Succeeded)
+Applying SQL Id: 081a  :- Colour cascade CTkCheckBox/text color (Succeeded)
+Applying SQL Id: 082  :- Colour cascade CTkRadioButton/text color (Succeeded)
+Applying SQL Id: 083  :- Colour cascade CTkSwitch/text color disabled (Succeeded)
+Applying SQL Id: 084  :- Colour cascade CTkOptionMenu/text color disabled (Succeeded)
+Applying SQL Id: 085  :- Colour cascade CTkComboBox/text color disabled (Succeeded)
+Applying SQL Id: 086  :- Colour cascade CTkSegmentedButton/text color disabled (Succeeded)
+Applying SQL Id: 090  :- Colour cascade CTkCheckBox/text color disabled (Succeeded)
+Applying SQL Id: 091  :- Colour cascade CTkRadioButton/text color disabled (Succeeded)
+Applying SQL Id: 100  :- Scaling Clean-up (Succeeded)
+Applying SQL Id: 110  :- Control Panel scaling (Succeeded)
+Applying SQL Id: 111  :- Preview Panel scaling (Succeeded)
+Applying SQL Id: 112  :- Preview Panel scaling (Succeeded)
+Applying SQL Id: 120  :- Confirm cascade (Succeeded)
+Applying SQL Id: 121  :- Reset last theme on start (Succeeded)
+Applying SQL Id: 122  :- Initialise last theme on start (Succeeded)
+Applying SQL Id: 123  :- Initialise listener port (Succeeded)
+Applying SQL Id: 130  :- Logger level (Succeeded)
+Applying SQL Id: 131  :- Logger level (Succeeded)
+Applying SQL Id: 132  :- Logger level (Succeeded)
+App Home for CTk Theme Builder: C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder
+
+To launch the application run the ctk_theme_builder command script, located at:
+C:\Users\adria\OneDrive\Documentos\Python\ctkthemebuilder\ctk_theme_builder/ctk_theme_builder
+
+Done.
