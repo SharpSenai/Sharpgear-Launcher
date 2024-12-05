@@ -1,100 +1,110 @@
 import customtkinter as ctk
 import sqlite3
-from tab_view import TabView
-from PIL import Image
+from tab_view import TabView  # Certifique-se de que está correto
 import os
-import sys
+
+
+def destroy_window(window):
+    """
+    Função para fechar uma janela específica.
+    """
+    if window is not None:
+        window.destroy()  # Fecha a janela especificada
+        print("Janela destruída.")
+
 
 def add_usuario(master):
+    """
+    Função para adicionar um novo usuário ao banco de dados.
+    """
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
     cursor = connection.cursor()
-    
+
     nome = master.ent_nome.get()
     user = master.ent_user.get()
     email = master.ent_email.get()
     senha = master.ent_senha.get()
     nasc = master.ent_nasc.get()
 
-    print(nome, user, email, senha, nasc)
-    print("❤")
-    try: 
-        cursor.execute('INSERT INTO users (nome, user, email, senha, nasc) VALUES (?, ?, ?, ?, ?)', (nome, user, email, senha, nasc))
-        connection.commit()
-        master.destroy()  # Fecha a janela de registro
-        print("😜")
+    print(f"Tentando registrar: {nome}, {user}, {email}, {senha}, {nasc}")
 
+    try:
+        cursor.execute(
+            'INSERT INTO users (nome, user, email, senha, nasc) VALUES (?, ?, ?, ?, ?)',
+            (nome, user, email, senha, nasc)
+        )
+        connection.commit()
+
+        print("Usuário registrado com sucesso!")
+        destroy_window(master)  # Fecha a janela de registro
+
+        # Reabre a janela de login importando-a dinamicamente
         from main import LoginWindow
         LoginWindow()
-        
-        #abrir_janela_principal(user)  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
-        print("Erro ao inserir usuário no banco de dados.")
+        print("Erro: Nome de usuário ou email já cadastrado!")
     finally:
         connection.close()
 
+
 def verificar_usuario(master):
+    """
+    Função para verificar o login do usuário.
+    """
     connection = sqlite3.connect('sharpgear-ui\\database\\sharp_database.db')
     cursor = connection.cursor()
 
     nomeEmail = master.ent_email.get()
     senha = master.ent_senha.get()
-    print(nomeEmail, senha)
+    print(f"Login tentando com: {nomeEmail}, senha: {senha}")
 
     try:
-        cursor.execute('SELECT id, user FROM users WHERE (user = ? OR email = ?) AND senha = ?',(nomeEmail,nomeEmail,senha))
+        cursor.execute(
+            'SELECT id, user FROM users WHERE (user = ? OR email = ?) AND senha = ?',
+            (nomeEmail, nomeEmail, senha)
+        )
         resultado = cursor.fetchone()
-        print(resultado[0], resultado[1])
-        
-        if resultado:
-            print(resultado[0], resultado[1])
-            import globalVars  # Certifique-se de usar o módulo completo
-            from database import currentUser
-            globalVars.usuarioAtual = currentUser(resultado[0]).getInfo()     
-            globalVars.usuarioAtual = currentUser(resultado[0]).getInfo()     
-            print(f"User logado: {globalVars.usuarioAtual}")
-    
-            abrir_janela_principal()  # Chama função para abrir janela principal
-        else:
-            print("Login de usuário errado!!")
 
+        if resultado:
+            print(f"Login bem-sucedido! ID: {resultado[0]}, Usuário: {resultado[1]}")
+
+            abrir_janela_principal()  # Chama a janela principal
+        else:
+            print("Credenciais inválidas. Tente novamente.")
     except sqlite3.Error as E:
-        print(f"Deu erro! {E}")
+        print(f"Erro ao verificar usuário: {E}")
     finally:
         connection.close()
 
+
 def abrir_janela_principal():
-    print("🎶")
+    """
+    Abre a janela principal após o login bem-sucedido.
+    """
+    print("Abrindo janela principal...")
     janela_principal = ctk.CTkToplevel()
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
 
-    janela_principal.focus_force()
-    janela_principal.attributes("-topmost", True)
-    #janela_principal.attributes("-topmost", False)  # Remove o comportamento "sempre no topo" após abrir
-
     laura = TabView(janela_principal)
-    laura.pack(side = 'left',fill = 'y')
-    '''
-    mainframe = BibliotecaFrame(janela_principal,nome_usuario)
-    mainframe.pack(side = "left",fill = 'y')
-    '''
+    laura.pack(side='left', fill='y')
 
     janela_principal.mainloop()
 
+
 class RegisterFrame(ctk.CTkFrame):
+    """
+    Frame para o formulário de registro.
+    """
     def __init__(self, master):
         super().__init__(master)
 
         # Labels
-        self.label = ctk.CTkLabel(self, text='SEJA BEM VINDO!', font=('Poppins', 25, 'bold'))
+        self.label = ctk.CTkLabel(self, text='SEJA BEM-VINDO!', font=('Poppins', 25, 'bold'))
         self.label.grid(row=0, column=0, padx=20, pady=20, sticky='w')
+
         self.label = ctk.CTkLabel(self, text='Crie sua conta na Sharpgear Launcher', font=('Poppins', 15, 'bold'))
         self.label.grid(row=1, column=0, padx=20, sticky='w')
-        self.label = ctk.CTkLabel(self, text='Ou Entre em sua Conta', font=('Poppins', 12, 'bold', 'underline'))
-        
-        self.label.grid(row=2, column=0, padx=20, sticky='w')
-        self.label = ctk.CTkLabel(self, text='Ao Cadastrar na Sharpgear Launcher você concorda\ncom os nossos termos de uso.', font=('Poppins', 12, 'bold'))
-        self.label.grid(row=8, column=0, padx=20, sticky='w')
 
         # Entradas
         self.ent_nome = ctk.CTkEntry(self, placeholder_text='Nome Completo')
@@ -107,12 +117,16 @@ class RegisterFrame(ctk.CTkFrame):
         self.ent_senha.grid(row=6, column=0, padx=20, pady=10, sticky='ew')
         self.ent_nasc = ctk.CTkEntry(self, placeholder_text='Data de Nascimento')
         self.ent_nasc.grid(row=7, column=0, padx=20, pady=10, sticky='ew')
-        
+
         # Botão para registrar o usuário
         self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=lambda: add_usuario(self))
         self.btn_cadastrar.grid(row=9, column=0, padx=20, pady=10, sticky='eew')
 
+
 class RegisterWindow(ctk.CTkToplevel):
+    """
+    Janela de registro.
+    """
     def __init__(self, master):
         super().__init__(master)
         self.title('Sharpgear Launcher - Registro')

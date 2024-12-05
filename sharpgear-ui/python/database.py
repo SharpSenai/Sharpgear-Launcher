@@ -37,7 +37,6 @@ class currentUser:
         finally: 
             conn.close()
         
-
 def add_jogos(_nome,_dev,_desc,_url):
     connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
     cursor = connection.cursor()
@@ -75,41 +74,6 @@ def list_all_games():
         print(f"Nome: {game[0]}")
     conn.close()
 
-##Criar Tabela Usuários
-cursor.execute('''
-               CREATE TABLE IF NOT EXISTS users ( 
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               nome TEXT NOT NULL, 
-               user TEXT UNIQUE  NOT NULL, 
-               email TEXT UNIQUE NOT NULL, 
-               senha TEXT  NOT NULL, 
-               nasc TEXT  NOT NULL
-)
-''')
-
-##Criar Tabela Usuários
-cursor.execute('''
-               CREATE TABLE IF NOT EXISTS games(
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               name TEXT NOT NULL,
-               developer TEXT,
-               desc TEXT,
-               gameURL TEXT
-               )
-''')
-
-#Criar Tabela Bibliotecas
-cursor.execute(''' 
-                CREATE TABLE IF NOT EXISTS bibliotecas(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INT NOT NULL,
-                game_id INT NOT NULL,
-                FOREIGN KEY (user_id) REFERENCES users (id),
-                FOREIGN KEY (game_id) REFERENCES games (id)
-                )
-''')
-
-
 def list_user_library(username):
     conn = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
     cursor = conn.cursor()
@@ -132,6 +96,39 @@ def list_user_library(username):
     
     conn.close()
 
+##Criar Tabela Usuários
+cursor.execute('''
+               CREATE TABLE IF NOT EXISTS users ( 
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               nome TEXT NOT NULL, 
+               user TEXT UNIQUE  NOT NULL, 
+               email TEXT UNIQUE NOT NULL, 
+               senha TEXT  NOT NULL, 
+               nasc TEXT  NOT NULL
+)
+''')
+
+##Criar Tabela Jogos
+cursor.execute('''
+               CREATE TABLE IF NOT EXISTS games(
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               name TEXT NOT NULL,
+               developer TEXT,
+               desc TEXT,
+               gameURL TEXT
+               )
+''')
+
+#Criar Tabela Bibliotecas
+cursor.execute(''' 
+                CREATE TABLE IF NOT EXISTS bibliotecas(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INT NOT NULL,
+                game_id INT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users (id),
+                FOREIGN KEY (game_id) REFERENCES games (id)
+                )
+''')
 
 list_user_library("admin")
 connection.commit()

@@ -5,7 +5,7 @@ from PIL import Image
 
 ctk.set_widget_scaling(1.1)
 ctk.set_default_color_theme("sharpgear-ui/themes/sharpgear.json")
-ctk.set_appearance_mode("dark")
+ctk.set_appearance_mode("Dark")
 
 class Main(ctk.CTk):
     def __init__(self):
@@ -15,7 +15,6 @@ class Main(ctk.CTk):
 
 class LoginWindow(ctk.CTkToplevel):
     def __init__(self):
-        
         super().__init__()
         print("Janela login aberta")
         self.title('Sharpgear Launcher - Login')
@@ -36,6 +35,5 @@ class LoginWindow(ctk.CTkToplevel):
         self.withdraw()  # Oculta a janela de login
         RegisterWindow(self)  # Passa a própria janela como master
 
-if __name__ == "__main__":
-    app = Main()
-    app.mainloop()
+app = Main()
+app.mainloop()
