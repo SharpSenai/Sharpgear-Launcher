@@ -36,5 +36,6 @@ class LoginWindow(ctk.CTkToplevel):
         self.withdraw()  # Oculta a janela de login
         RegisterWindow(self)  # Passa a própria janela como master
 
-app = Main()
-app.mainloop()
+if __name__ == "__main__":
+    app = Main()
+    app.mainloop()

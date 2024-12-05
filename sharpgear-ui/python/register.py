@@ -23,7 +23,10 @@ def add_usuario(master):
         master.destroy()  # Fecha a janela de registro
         print("😜")
 
-        abrir_janela_principal(user)  # Chama a função para abrir a janela principal
+        from main import LoginWindow
+        LoginWindow()
+        
+        #abrir_janela_principal(user)  # Chama a função para abrir a janela principal
     except sqlite3.IntegrityError:
         print("Erro ao inserir usuário no banco de dados.")
     finally:
@@ -43,14 +46,23 @@ def verificar_usuario(master):
         print(resultado[0], resultado[1])
         
         if resultado:
-            abrir_janela_principal(resultado[0])
+            print(resultado[0], resultado[1])
+            import globalVars  # Certifique-se de usar o módulo completo
+            from database import currentUser
+            globalVars.usuarioAtual = currentUser(resultado[0]).getInfo()     
+            globalVars.usuarioAtual = currentUser(resultado[0]).getInfo()     
+            print(f"User logado: {globalVars.usuarioAtual}")
+    
+            abrir_janela_principal()  # Chama função para abrir janela principal
         else:
-            print("Login de usuario errado !!")
+            print("Login de usuário errado!!")
 
     except sqlite3.Error as E:
         print(f"Deu erro! {E}")
+    finally:
+        connection.close()
 
-def abrir_janela_principal(nome_usuario):
+def abrir_janela_principal():
     print("🎶")
     janela_principal = ctk.CTkToplevel()
     janela_principal.title('Sharpgear Launcher - Principal')
@@ -60,7 +72,7 @@ def abrir_janela_principal(nome_usuario):
     janela_principal.attributes("-topmost", True)
     #janela_principal.attributes("-topmost", False)  # Remove o comportamento "sempre no topo" após abrir
 
-    laura = TabView(janela_principal,nome_usuario)
+    laura = TabView(janela_principal)
     laura.pack(side = 'left',fill = 'y')
     '''
     mainframe = BibliotecaFrame(janela_principal,nome_usuario)

@@ -4,7 +4,7 @@ import sqlite3
 import webbrowser
 
 class TabView(ctk.CTkTabview):
-    def __init__(self, master, _user_id):
+    def __init__(self, master):
         super().__init__(master)
 
         self.configure(anchor = "w",fg_color = "transparent")
@@ -13,18 +13,25 @@ class TabView(ctk.CTkTabview):
         tab_biblioteca = self.add("ㅤBibliotecaㅤ")
         tab_loja = self.add("ㅤLojaㅤ")
         tab_perfil = self.add("ㅤPerfilㅤ")
-
+        
+        import globalVars
+        
         for tab_button in self._segmented_button._buttons_dict.values():
             tab_button.grid_configure(padx=20)
             tab_button.configure(font=("Poppins", 16, "bold"))  # Alterando a fonte
 
 
         # Inicialização dos frames dentro de cada aba
-        frame_biblioteca = FrameBiblioteca(tab_biblioteca, _user_id)
-        frame_biblioteca.pack(side='left', fill='y')
-
-        frame_perfil = FramePerfil(tab_perfil, _user_id)
-        frame_perfil.pack()
+        
+        if globalVars.usuarioAtual is None:
+            print("Erro: Nenhum usuário está logado!")
+            raise ValueError("Nenhum usuário está logado!")
+        else:
+             frame_biblioteca = FrameBiblioteca(tab_biblioteca, globalVars.usuarioAtual["id"])
+             frame_biblioteca.pack(side='left', fill='y')
+        
+             frame_perfil = FramePerfil(tab_perfil, globalVars.usuarioAtual["user"])
+             frame_perfil.pack()
 
 
 class FrameBiblioteca(ctk.CTkFrame):
@@ -32,7 +39,7 @@ class FrameBiblioteca(ctk.CTkFrame):
         super().__init__(master)
         self.user_id = _user_id
         self.jogo_selecionado = None
-
+        
         def atualizar_combobox(_resultados):
             jogos = [row[0] for row in _resultados]
             self.combobox.configure(values=jogos)
@@ -111,22 +118,3 @@ class FramePerfil(ctk.CTkFrame):
         # Exibe o nome do usuário no frame de perfil
         self.label = ctk.CTkLabel(self, text=_user)
         self.label.grid(row=0, column=0)
-
-
-class UpperFrame(ctk.CTkFrame):
-    def __init__(self, master, nome_user):
-        super().__init__(master)
-
-        # Exibindo o nome do usuário no canto superior direito
-        self.label_nome = ctk.CTkLabel(self, text=nome_user, font=('Codec Cold Trial', 15, 'bold'))
-        self.label_nome.grid(row=0, column=8, padx=500, pady=4)
-
-        # Botões no frame superior
-        self.btt_biblioteca = ctk.CTkButton(self, text="BIBLIOTECA")
-        self.btt_biblioteca.grid(row=0, column=1, padx=50, pady=20)
-
-        self.btt_loja = ctk.CTkButton(self, text="LOJA")
-        self.btt_loja.grid(row=0, column=2, padx=50, pady=20)
-
-        self.btt_perfil = ctk.CTkButton(self, text=nome_user)
-        self.btt_perfil.grid(row=0, column=3, padx=50, pady=20)
