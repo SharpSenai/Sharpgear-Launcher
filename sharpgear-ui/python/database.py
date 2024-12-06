@@ -1,42 +1,13 @@
 import sqlite3
 import os
 
+#Conexão com o Banco de Dados
 path_db = os.path.join("C:", "Dados","sh")
 
 connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
 print(connection.total_changes)
 cursor = connection.cursor()
 
-class currentUser:
-    def __init__(self, id):
-        self._userInfo = None
-        self._tempId = id
-        self.updInfo()
-        
-    def getInfo(self): return self._userInfo or {}
-    def updInfo(self):
-        conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        
-        try:
-            cursor.execute(""" 
-                           SELECT *
-                           FROM users
-                           WHERE ID = ?
-                           """,(self._tempId,))
-            result = cursor.fetchone()
-            
-            if result:
-                self._userInfo = dict(result)
-                print(self._userInfo)
-            else:
-                print(f"Informação de usuário não encontrada: {id}")
-        except sqlite3.Error as e: 
-            print("Erro ao conectar ao banco de dados: ", e)
-        finally: 
-            conn.close()
-        
 def add_jogos(_nome,_dev,_desc,_url):
     connection = sqlite3.connect("sharpgear-ui\database\sharp_database.db")
     cursor = connection.cursor()
@@ -96,6 +67,38 @@ def list_user_library(username):
     
     conn.close()
 
+
+
+class currentUser:
+    def __init__(self, id):
+        self._userInfo = None
+        self._tempId = id
+        self.updInfo()
+        
+    def getInfo(self): return self._userInfo or {}
+    def updInfo(self):
+        conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute(""" 
+                           SELECT *
+                           FROM users
+                           WHERE ID = ?
+                           """,(self._tempId,))
+            result = cursor.fetchone()
+            
+            if result:
+                self._userInfo = dict(result)
+                print(self._userInfo)
+            else:
+                print(f"Informação de usuário não encontrada: {id}")
+        except sqlite3.Error as e: 
+            print("Erro ao conectar ao banco de dados: ", e)
+        finally: 
+            conn.close()
+        
 ##Criar Tabela Usuários
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS users ( 
