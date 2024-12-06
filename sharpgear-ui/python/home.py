@@ -28,7 +28,7 @@ class TabView(ctk.CTkTabview):
              frame_biblioteca = FrameBiblioteca(tab_biblioteca, global_vars.usuarioAtual["id"])
              frame_biblioteca.pack(side='left', fill='y')
         
-             frame_perfil = FramePerfil(tab_perfil, global_vars.usuarioAtual["user"])
+             frame_perfil = FramePerfil(tab_perfil)
              frame_perfil.pack()
 
              frame_loja = FrameLoja(tab_loja,global_vars.usuarioAtual["id"])
@@ -129,9 +129,15 @@ class FrameLoja(ctk.CTkFrame):
         self.label.grid(row = 0,column = 0,sticky = 'n')
 
 class FramePerfil(ctk.CTkFrame):
-    def __init__(self, master, _user):
+    def __init__(self, master):
         super().__init__(master)
-
+        import global_vars  
         # Exibe o nome do usuário no frame de perfil
-        self.label = ctk.CTkLabel(self, text=_user)
-        self.label.grid(row=0, column=0)
+        self.username = ctk.CTkLabel(self, text=global_vars.usuarioAtual["user"])
+        self.username.grid(row=0, column=0)
+        
+        self.email = ctk.CTkLabel(self,text=global_vars.usuarioAtual["email"])
+        self.email.grid(row=1,column=0)
+
+        self.nome = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nome"])
+        self.nome.grid(row=2,column=0)
