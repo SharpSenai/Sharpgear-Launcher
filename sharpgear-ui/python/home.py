@@ -81,8 +81,9 @@ class FrameBiblioteca(ctk.CTkFrame):
                 webbrowser.open(self.jogo_selecionado["gameURL"], new=1)
 
         # Combobox para busca de jogos
-        self.combobox = ctk.CTkComboBox(master=self, values=[], width=220,state="normal",font=('Poppins', 13,'bold'), command=selecionarJogo)
+        self.combobox = ctk.CTkComboBox(master=self, values=[""], width=220,state="normal",font=('Poppins', 13,'bold'), command=selecionarJogo)
         self.combobox.grid(row=0, column=0, padx=15, pady=10,sticky = "n")
+        procurar_jogos(None)
 
         self.combobox.set("")
         self.combobox.bind("<KeyRelease>",procurar_jogos)
