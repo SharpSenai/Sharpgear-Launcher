@@ -45,28 +45,15 @@ class FrameBiblioteca(ctk.CTkFrame):
             self.combobox.configure(values=jogos)
 
         def selecionarJogo(_nome):
-            conn = sqlite3.connect("sharpgear-ui/database/sharp_database.db")
-            conn.row_factory = sqlite3.Row
-            cursor = conn.cursor()
-
-            try: 
-                cursor.execute("""
-                               SELECT *
-                               FROM games
-                               WHERE name = ?
-                               """,(_nome,))
-                
-                result = cursor.fetchone()
-                
-                if result:
-                    self.jogo_selecionado = dict(result)
-                    print(self.jogo_selecionado)
-                else:
-                    print(f"Jogo não encontrado {_nome}")
-            except sqlite3.Error as e:
-                print("Erro ao buscar jogos na biblioteca:", e)
-            finally:
-                conn.close()
+            self.jogo_selecionado = database.get_gameInfo(_nome)
+            get_img = database.get_gameImages(self.jogo_selecionado["name"])
+            self.imagem_grande = ctk.CTkImage(dark_image=Image.open(get_img["Thumb"]), size=(1920/2.1, 1500/2.1))
+            self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
+            self.imagem_label_grande.grid(row = 0, column = 1)
+            
+            self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command=iniciarJogo)
+            self.botao.place(x= 950,y=400)
+            print(self.jogo_selecionado)
 
         def procurar_jogos(event=None):
             consulta = self.combobox.get()  # Texto digitado na combobox
@@ -99,16 +86,6 @@ class FrameBiblioteca(ctk.CTkFrame):
 
         self.combobox.set("")
         self.combobox.bind("<KeyRelease>",procurar_jogos)
-
-        #Imagem do jogo
-        get_game = "Surv N Live" ##troque por (self.jogo_selecionado["name"]
-        get_img = database.get_gameImages(get_game)
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open(get_img["Thumb"]), size=(1920/2.1, 1500/2.1))
-        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
-        self.imagem_label_grande.grid(row = 0, column = 1)
-
-        self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command=iniciarJogo)
-        self.botao.place(x= 950,y=400)
 
 class FrameLoja(ctk.CTkFrame):
     def __init__(self,master):
@@ -207,12 +184,18 @@ class FramePerfil(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
  
-        # Exibe o nome do usuário no frame de perfil
-        self.username = ctk.CTkLabel(self, text=global_vars.usuarioAtual["user"])
-        self.username.grid(row=0, column=0)
-        
-        self.email = ctk.CTkLabel(self,text=global_vars.usuarioAtual["email"])
-        self.email.grid(row=1,column=0)
+        font_titulo = ("Arial", 18, "bold")  # Fonte maior para título
+        font_padrao = ("Poppins", 16, "bold")         # Fonte padrão para informações
 
-        self.nome = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nome"])
-        self.nome.grid(row=2,column=0)
+        # Exibe o nome do usuário no frame de perfil
+        self.username = ctk.CTkLabel(self, text=global_vars.usuarioAtual["user"], font=font_titulo)
+        self.username.grid(row=0, column=0, pady=10)
+
+        self.email = ctk.CTkLabel(self, text=global_vars.usuarioAtual["email"], font=font_padrao)
+        self.email.grid(row=1, column=0, pady=5)
+
+        self.nome = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nome"], font=font_padrao)
+        self.nome.grid(row=2, column=0, pady=5)
+
+        self.nasc = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nasc"], font=font_padrao)
+        self.nasc.grid(row=3, column=0, pady=5)
