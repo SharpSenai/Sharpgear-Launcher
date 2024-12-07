@@ -178,15 +178,19 @@ cursor.execute('''
                 )
 ''')
 
-"""
-add_jogos("Hell-O World", "AdriN", "Um jogo onde você é uma TV com armas.", "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
+
+add_jogos("Hell-O World", "Sharpgear Underground", 
+          "HELL-O WORLD é um jogo PvP para 2-4 jogadores\nque utiliza o sistema de Rollback Beta do GMS2.\nConvide seus amigos para destruí-los nesse jogo\nde tiro competitivo Top-Down. -Criado por AdriN.",
+            "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
           json.dumps(
               {
                   "Capa": "sharpgear-ui\images\hw\splash_hell0world.png",
-                  "sharpgear-ui\images\hw\library_hell0world.png"
+                  "Thumb":"sharpgear-ui\images\hw\library_hell0world.png",
+                  "Screenshot0":"sharpgear-ui\images\hw\hw_screenshot0.png",
+                  "Screenshot1":"sharpgear-ui\images\hw\hw_screenshot1.png"
               }
           ), 0)
-"""
+
 
 add_jogos("Surv N Live", "Sharpgear Underground",
                     "Surv N' Live é um jogo coop top down no qual você\n"
@@ -197,9 +201,10 @@ add_jogos("Surv N Live", "Sharpgear Underground",
                                         "https://gx.games/games/g14inf/surv-n-live-0-0-0-7-old-ver-/tracks/f2d8415e-9385-43f6-8776-0deec28eb368/", 
           json.dumps(
               {
-                  "Capa": "sharpgear-ui\\images\\splash_survnlive.png",
-                  "Thumb":"sharpgear-ui\\images\\library_survnlive.png",
-                  "Screenshots":["sharpgear-ui\images\snl\snl_screenshot0.png","sharpgear-ui\images\snl\snl_screenshot1.png"]
+                  "Capa": "sharpgear-ui\images\snl\splash_survnlive.png",
+                  "Thumb":"sharpgear-ui\images\snl\library_survnlive.png",
+                  "Screenshot0":"sharpgear-ui\images\snl\snl_screenshot0.png",
+                  "Screenshot1":"sharpgear-ui\images\snl\snl_screenshot1.png"
               }
           ), 0)
 

@@ -2,8 +2,8 @@ import customtkinter as ctk
 from PIL import Image
 import sqlite3
 import webbrowser
-from database import add_jogo_biblioteca
-import global_vars 
+import database
+import global_vars
 
 class TabView(ctk.CTkTabview):
     def __init__(self, master):
@@ -101,7 +101,9 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.combobox.bind("<KeyRelease>",procurar_jogos)
 
         #Imagem do jogo
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\snl\library_survnlive.png"), size=(960, 750))
+        get_game = "Surv N Live" ##troque por (self.jogo_selecionado["name"]
+        get_img = database.get_gameImages(get_game)
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open(get_img["Thumb"]), size=(1920/2.1, 1500/2.1))
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
         self.imagem_label_grande.grid(row = 0, column = 1)
 
@@ -119,22 +121,31 @@ class FrameLoja(ctk.CTkFrame):
         self.label = ctk.CTkLabel(self.scroll_frame,text="Originais Sharpgear:", font=("Poppins", 15,"bold"))
         self.label.pack(anchor = 'w',padx = 150,pady = 10)
 
-        self.snl_frame = FrameJogoLoja(self.scroll_frame,"Surv N Live: Prototype",
-                                       
-                                       "Surv N' Live é um jogo coop top down no qual você\n"
-                                        "assume o papel de três jovens de um grupo de\n"
-                                        "hackers que foram “convidados” de maneira curta\n"
-                                        "e gentil a participar de uma série de desafios que\n"
-                                        "valem sua liberdade... ou até mesmo sua vida.",
+        game_info = database.get_gameInfo("Surv N Live")
+        get_images = database.get_gameImages("Surv N Live")
 
-                                        "sharpgear-ui\images\snl\splash_survnlive.png",
-                                        "sharpgear-ui\images\snl\snl_screenshot0.png",
-                                        "sharpgear-ui\images\snl\snl_screenshot1.png",
+        self.snl_frame = FrameJogoLoja(self.scroll_frame,game_info["name"],
+                                       game_info["desc"],
+                                        get_images["Capa"],
+                                        get_images["Screenshot0"],
+                                        get_images["Screenshot1"],
                                         "R$20"
                                         )
         
         self.snl_frame.pack()
 
+        game_info = database.get_gameInfo("Hell-O World")
+        get_images = database.get_gameImages("Hell-O World")
+
+        self.hw_frame = FrameJogoLoja(self.scroll_frame,game_info["name"],
+                                       game_info["desc"],
+                                        get_images["Capa"],
+                                        get_images["Screenshot0"],
+                                        get_images["Screenshot1"],
+                                        "R$20"
+                                        )
+        
+        self.hw_frame.pack(pady = 20)
 
 class FrameJogoLoja(ctk.CTkFrame):
     def __init__(self, parent,_titulo, _desc, _splash, _shot0, _shot1, _price):
@@ -142,7 +153,7 @@ class FrameJogoLoja(ctk.CTkFrame):
 
         def adquirir_jogo():
             self.btt_adquirir.configure(state = "disabled",text = "Adquirido")
-            add_jogo_biblioteca(global_vars.usuarioAtual["user"],"Hell-O World")
+            database.add_jogo_biblioteca(global_vars.usuarioAtual["user"],_titulo)
         
         # Configuração do frame principal
         self.snl_frame = ctk.CTkFrame(self)
