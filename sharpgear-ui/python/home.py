@@ -2,6 +2,8 @@ import customtkinter as ctk
 from PIL import Image
 import sqlite3
 import webbrowser
+from database import add_jogo_biblioteca
+import global_vars 
 
 class TabView(ctk.CTkTabview):
     def __init__(self, master):
@@ -14,8 +16,6 @@ class TabView(ctk.CTkTabview):
         tab_loja = self.add("ㅤLojaㅤ")
         tab_perfil = self.add("ㅤPerfilㅤ")
         
-        import global_vars
-        
         for tab_button in self._segmented_button._buttons_dict.values():
             tab_button.grid_configure(padx=20)
             tab_button.configure(font=("Poppins", 16, "bold"))  # Alterando a fonte
@@ -26,13 +26,13 @@ class TabView(ctk.CTkTabview):
             raise ValueError("Nenhum usuário está logado!")
         else:
              frame_biblioteca = FrameBiblioteca(tab_biblioteca, global_vars.usuarioAtual["id"])
-             frame_biblioteca.pack(side='left', fill='y')
+             frame_biblioteca.pack(side='left', fill='both')
         
              frame_perfil = FramePerfil(tab_perfil)
              frame_perfil.pack()
 
-             frame_loja = FrameLoja(tab_loja,global_vars.usuarioAtual["id"])
-             frame_loja.pack(fill = 'x')
+             frame_loja = FrameLoja(tab_loja)
+             frame_loja.pack(fill = 'both')
 
 class FrameBiblioteca(ctk.CTkFrame):
     def __init__(self, master, _user_id):
@@ -101,7 +101,7 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.combobox.bind("<KeyRelease>",procurar_jogos)
 
         #Imagem do jogo
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\library_survnlive.png"), size=(960, 750))
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\snl\library_survnlive.png"), size=(960, 750))
         self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
         self.imagem_label_grande.grid(row = 0, column = 1)
 
@@ -109,29 +109,93 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.botao.place(x= 950,y=400)
 
 class FrameLoja(ctk.CTkFrame):
-    def __init__(self,master, _user):
+    def __init__(self,master):
         super().__init__(master)
 
-        self.label = ctk.CTkLabel(self,text="Destaque e Recomendados:")
-        self.label.place(x= 40, y = 50)
+        self.scroll_frame = ctk.CTkScrollableFrame(self)
+        self.scroll_frame.configure(width = 1280,height = 720)
+        self.scroll_frame.pack(fill = 'both')
 
-        ##SURV N LIVE
+        self.label = ctk.CTkLabel(self.scroll_frame,text="Originais Sharpgear:", font=("Poppins", 15,"bold"))
+        self.label.pack(anchor = 'w',padx = 150,pady = 10)
+
+        self.snl_frame = FrameJogoLoja(self.scroll_frame,"Surv N Live: Prototype",
+                                       
+                                       "Surv N' Live é um jogo coop top down no qual você\n"
+                                        "assume o papel de três jovens de um grupo de\n"
+                                        "hackers que foram “convidados” de maneira curta\n"
+                                        "e gentil a participar de uma série de desafios que\n"
+                                        "valem sua liberdade... ou até mesmo sua vida.",
+
+                                        "sharpgear-ui\images\snl\splash_survnlive.png",
+                                        "sharpgear-ui\images\snl\snl_screenshot0.png",
+                                        "sharpgear-ui\images\snl\snl_screenshot1.png",
+                                        "R$20"
+                                        )
         
-        #Imagem do jogo
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\splash_survnlive.png"), size=(384, 216))
-        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
-        self.imagem_label_grande.grid(row = 1,column = 1)
+        self.snl_frame.pack()
 
+
+class FrameJogoLoja(ctk.CTkFrame):
+    def __init__(self, parent,_titulo, _desc, _splash, _shot0, _shot1, _price):
+        super().__init__(parent)
+
+        def adquirir_jogo():
+            self.btt_adquirir.configure(state = "disabled",text = "Adquirido")
+            add_jogo_biblioteca(global_vars.usuarioAtual["user"],"Hell-O World")
+        
+        # Configuração do frame principal
         self.snl_frame = ctk.CTkFrame(self)
-        self.snl_frame.grid(row =0, column = 2)
+        self.snl_frame.grid(row=0, column=0)
+        
+        # Imagem do jogo
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open(_splash), size=(1920/4, 1080/4))
+        self.imagem_label_grande = ctk.CTkLabel(self.snl_frame, image=self.imagem_grande, text="")
+        self.imagem_label_grande.grid(row=0, column=0,padx = 10)
 
-        self.label = ctk.CTkLabel(self.snl_frame,text="Surv N Live",font=("Poppins",15,"bold"))
-        self.label.grid(row = 0,column = 0,sticky = 'n')
+        # Frame lateral
+        self.side_frame = ctk.CTkFrame(self.snl_frame)
+        self.side_frame.grid(row=0, column=1)
+
+        # Título
+        self.label_titulo = ctk.CTkLabel(self.side_frame, justify='left', font=("Poppins", 15, "bold"), text=_titulo)
+        self.label_titulo.grid(row=0, column=0, sticky='w', padx=20, pady=10)
+
+        # Screenshots do Jogo
+        self.screenshot_1 = ctk.CTkImage(dark_image=Image.open(_shot0), size=(1920/14, 1080/14))
+        self.label_screenshot_1 = ctk.CTkLabel(self.side_frame, justify='left', image=self.screenshot_1, text="")
+        self.label_screenshot_1.grid(row=1, column=0, sticky='w', padx=20)
+
+        self.screenshot_2 = ctk.CTkImage(dark_image=Image.open(_shot1), size=(1920/14, 1080/14))
+        self.label_screenshot_2 = ctk.CTkLabel(self.side_frame, image=self.screenshot_2, text="")
+        self.label_screenshot_2.grid(row=1, column=0, sticky='e', padx=40)
+
+        # Descrição
+        self.label_descricao = ctk.CTkLabel(
+            self.side_frame,
+            font=("Poppins", 12, "bold"),
+            justify='left',
+            text=_desc
+        )
+        self.label_descricao.grid(row=2, column=0, sticky='w', padx=20, pady=10)
+
+        # Botão de Adquirir
+        self.btt_adquirir = ctk.CTkButton(self.side_frame, font=("Poppins", 12, "bold"), text="Adquirir",command=adquirir_jogo)
+        self.btt_adquirir.grid(row=3, column=0, sticky='w', padx=20, pady=5)
+
+        # Preço e status
+        self.label_preco = ctk.CTkLabel(
+            self.side_frame,
+            font=("Poppins", 15, "bold"),
+            justify='left',
+            text="Gratuito            ̶{}̶".format(_price)
+        )
+        self.label_preco.grid(row=3, column=0, sticky='e', padx=20, pady=10)
 
 class FramePerfil(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
-        import global_vars  
+ 
         # Exibe o nome do usuário no frame de perfil
         self.username = ctk.CTkLabel(self, text=global_vars.usuarioAtual["user"])
         self.username.grid(row=0, column=0)

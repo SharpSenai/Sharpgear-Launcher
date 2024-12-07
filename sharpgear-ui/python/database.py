@@ -52,8 +52,7 @@ def get_gameImages(gameName: str):
         cursor.close(); connection.close()
         
     return gameImages
-        
-        
+            
 def add_jogos(_nome,_dev,_desc,_url,_imagesurl,_isExe):
     connection = sqlite3.connect("sharpgear-ui\\database\\sharp_database.db")
     cursor = connection.cursor()
@@ -112,8 +111,6 @@ def list_user_library(username):
         print(f"'{username}' não tem jogos na biblioteca.")
     
     conn.close()
-
-
 
 class currentUser:
     def __init__(self, id):
@@ -180,15 +177,31 @@ cursor.execute('''
                 FOREIGN KEY (game_id) REFERENCES games (id)
                 )
 ''')
+
 """
 add_jogos("Hell-O World", "AdriN", "Um jogo onde você é uma TV com armas.", "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
           json.dumps(
               {
-                  "Capa": "sharpgear-ui\\images\\splash_survnlive.png",
-                  "Thumb":"sharpgear-ui\\images\\library_survnlive.png"
+                  "Capa": "sharpgear-ui\images\hw\splash_hell0world.png",
+                  "sharpgear-ui\images\hw\library_hell0world.png"
               }
           ), 0)
 """
+
+add_jogos("Surv N Live", "Sharpgear Underground",
+                    "Surv N' Live é um jogo coop top down no qual você\n"
+                                        "assume o papel de três jovens de um grupo de\n"
+                                        "hackers que foram “convidados” de maneira curta\n"
+                                        "e gentil a participar de uma série de desafios que\n"
+                                        "valem sua liberdade... ou até mesmo sua vida.",
+                                        "https://gx.games/games/g14inf/surv-n-live-0-0-0-7-old-ver-/tracks/f2d8415e-9385-43f6-8776-0deec28eb368/", 
+          json.dumps(
+              {
+                  "Capa": "sharpgear-ui\\images\\splash_survnlive.png",
+                  "Thumb":"sharpgear-ui\\images\\library_survnlive.png",
+                  "Screenshots":["sharpgear-ui\images\snl\snl_screenshot0.png","sharpgear-ui\images\snl\snl_screenshot1.png"]
+              }
+          ), 0)
 
 #add_jogos("Half-Life", "Valve", "")
 
