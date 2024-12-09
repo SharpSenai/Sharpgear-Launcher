@@ -4,12 +4,10 @@ from datetime import datetime, timedelta
 # Valida senha
 def is_valid_password(password: str) -> bool:
     """
-    Valida se a senha tem pelo menos 8 caracteres,
-    pelo menos uma letra maiúscula, uma minúscula e um caractere especial.
+    Valida se a senha tem pelo menos 8 caracteres.
     """
     
-    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$'
-    return bool(re.match(pattern, password))
+    return len(password) >= 8
 
 # Valida email
 def is_valid_email(email: str) -> bool:

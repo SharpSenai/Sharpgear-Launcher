@@ -204,7 +204,7 @@ class RegisterFrame(ctk.CTkFrame):
         self.ent_nasc.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_nasc, "nasc"))
         
         # Botão para registrar o usuário
-        self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=registrar())
+        self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=lambda: registrar())
         self.btn_cadastrar.grid(row=9, column=0, padx=20, pady=10, sticky='eew')
 
 class LoginFrame(ctk.CTkFrame):
