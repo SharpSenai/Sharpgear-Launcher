@@ -1,5 +1,7 @@
 import customtkinter as ctk
 import sqlite3
+import validate
+
 from PIL import Image
 from home import TabView
 
@@ -90,10 +92,83 @@ def add_usuario(master):
 class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
-
+        self.validName = False
+        self.validUser = False
+        self.validEmail = False
+        self.validPass = False
+        self.validBirthday = False
+            
         def login_goto():
             #soluções q até eu Deus duvida q cheguei vv
             self.master.master.master.tabview.set("Login")
+
+        def registrar():
+            if (self.validName and self.validUser and self.validEmail and self.validPass and self.validBirthday):
+                add_usuario(self)
+
+        def verificarInfo(entry, tipo):
+            info = entry.get()
+            
+            def configurar_borda(valido):
+                if valido:
+                    entry.configure(border_width=0)
+                else:
+                    entry.configure(border_width=2, border_color="red")
+
+            if info == "":
+                configurar_borda(True)
+                return
+
+            match tipo:
+                case "nome":
+                    if validate.is_valid_name(info):
+                        configurar_borda(True)
+                        self.validName = True
+                    else:
+                        configurar_borda(False)
+                        self.validName = False
+                    
+                case "user":
+                    if validate.is_valid_username(info):
+                        configurar_borda(True)
+                        self.validUser = True
+                    else:
+                        configurar_borda(False)
+                        self.validUser = False
+
+                case "email":
+                    if validate.is_valid_email(info):
+                        configurar_borda(True)
+                        self.validEmail = True
+                    else:
+                        configurar_borda(False)
+                        self.validEmail = False
+                    
+                case "senha":
+                    if validate.is_valid_password(info):
+                        configurar_borda(True)
+                        self.validPass = True
+                    else:
+                        configurar_borda(False)
+                        self.validPass = False
+                    
+                case "nasc":
+                    info = ''.join(filter(str.isdigit, info))
+            
+                    if len(info) > 2:
+                        info = f"{info[:2]}/{info[2:]}"
+                    if len(info) > 5:
+                        info = f"{info[:5]}/{info[5:]}"
+                    
+                    entry.delete(0, "end")
+                    entry.insert(0, info)
+                    
+                    if validate.is_valid_date_of_birth(info):
+                        configurar_borda(True)
+                        self.validBirthday = True
+                    else:
+                        configurar_borda(False)
+                        self.validBirthday = False
 
         # Labels
         self.label = ctk.CTkLabel(self, text='SEJA BEM VINDO!', font=('Poppins', 25, 'bold'))
@@ -110,17 +185,26 @@ class RegisterFrame(ctk.CTkFrame):
         # Entradas
         self.ent_nome = ctk.CTkEntry(self, placeholder_text='Nome Completo')
         self.ent_nome.grid(row=3, column=0, padx=20, pady=10, sticky='ew')
+        self.ent_nome.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_nome, "nome"))
+        
         self.ent_user = ctk.CTkEntry(self, placeholder_text='Usuário')
         self.ent_user.grid(row=4, column=0, padx=20, pady=10, sticky='ew')
+        self.ent_user.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_user, "user"))
+        
         self.ent_email = ctk.CTkEntry(self, placeholder_text='Email')
         self.ent_email.grid(row=5, column=0, padx=20, pady=10, sticky='ew')
+        self.ent_email.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_email, "email"))
+        
         self.ent_senha = ctk.CTkEntry(self, placeholder_text='Senha', show='*')
         self.ent_senha.grid(row=6, column=0, padx=20, pady=10, sticky='ew')
+        self.ent_senha.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_senha, "senha"))
+        
         self.ent_nasc = ctk.CTkEntry(self, placeholder_text='Data de Nascimento')
         self.ent_nasc.grid(row=7, column=0, padx=20, pady=10, sticky='ew')
+        self.ent_nasc.bind("<KeyRelease>",command=lambda event: verificarInfo(self.ent_nasc, "nasc"))
         
         # Botão para registrar o usuário
-        self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=lambda: add_usuario(self))
+        self.btn_cadastrar = ctk.CTkButton(self, text='Cadastrar', command=registrar())
         self.btn_cadastrar.grid(row=9, column=0, padx=20, pady=10, sticky='eew')
 
 class LoginFrame(ctk.CTkFrame):
