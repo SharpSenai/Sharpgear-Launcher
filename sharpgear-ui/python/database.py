@@ -53,13 +53,37 @@ def get_gameImages(gameName: str):
         
     return gameImages
             
-def add_jogos(_nome,_dev,_desc,_url,_imagesurl,_isExe):
+def add_jogos(_nome, _dev, _desc, _url, _imagesurl, _isExe):
     connection = sqlite3.connect("sharpgear-ui\\database\\sharp_database.db")
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO games (name,developer,desc, gameURL, images, isExe) VALUES (?, ?, ?, ?, ?, ?)", (_nome, _dev, _desc, _url, _imagesurl, _isExe))
-    connection.commit()
-    print("jogo adicionado")
-    connection.close()
+    
+    try:
+        # Verificar se o jogo já existe no banco de dados
+        cursor.execute("SELECT id FROM games WHERE name = ?", (_nome,))
+        result = cursor.fetchone()
+        
+        if result:
+            # Atualizar as informações do jogo existente
+            cursor.execute("""
+                UPDATE games
+                SET developer = ?, desc = ?, gameURL = ?, images = ?, isExe = ?
+                WHERE name = ?
+            """, (_dev, _desc, _url, _imagesurl, _isExe, _nome))
+            print(f"Jogo '{_nome}' atualizado com sucesso.")
+        else:
+            # Inserir um novo jogo
+            cursor.execute("""
+                INSERT INTO games (name, developer, desc, gameURL, images, isExe)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (_nome, _dev, _desc, _url, _imagesurl, _isExe))
+            print(f"Jogo '{_nome}' adicionado com sucesso.")
+        
+        connection.commit()
+    except sqlite3.Error as e:
+        print(f"Erro ao adicionar ou atualizar o jogo: {e}")
+    finally:
+        connection.close()
+
 
 def add_jogo_biblioteca(_user, _game):
     conn = sqlite3.connect("sharpgear-ui\\database\\sharp_database.db")
@@ -179,8 +203,12 @@ cursor.execute('''
 ''')
 
 
-add_jogos("Hell-O World", "Sharpgear Underground", 
-          "HELL-O WORLD é um jogo PvP para 2-4 jogadores\nque utiliza o sistema de Rollback Beta do GMS2.\nConvide seus amigos para destruí-los nesse jogo\nde tiro competitivo Top-Down. -Criado por AdriN.",
+add_jogos("Hell-O World", "Adrian Barbosa\nSharpgear Underground", 
+                                        "HELL-O WORLD é um jogo PvP para 2-4 jogadores\n"
+                                        "que utiliza o sistema de Rollback Beta do GMS2.\n"
+                                        "Convide seus amigos (se você tiver algum) para\n"
+                                        "destruí-los nesse jogo de tiro competitivo Top-Down.\n"
+                                        "-Criado e desenvolvido por AdriN.",
             "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
           json.dumps(
               {
@@ -192,8 +220,8 @@ add_jogos("Hell-O World", "Sharpgear Underground",
           ), 0)
 
 
-add_jogos("Surv N Live", "Sharpgear Underground",
-                    "Surv N' Live é um jogo coop top down no qual você\n"
+add_jogos("Surv N Live", "Adrian Barbosa\nSharpgear Underground",
+                                        "Surv N' Live é um jogo coop top down no qual você\n"
                                         "assume o papel de três jovens de um grupo de\n"
                                         "hackers que foram “convidados” de maneira curta\n"
                                         "e gentil a participar de uma série de desafios que\n"
@@ -208,10 +236,5 @@ add_jogos("Surv N Live", "Sharpgear Underground",
               }
           ), 0)
 
-#add_jogos("Half-Life", "Valve", "")
-
-#add_jogo_biblioteca("admin", "Hell-O World")
-
-list_user_library("admin")
 connection.commit()
 connection.close()

@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import sqlite3
+from PIL import Image
 from home import TabView
 
 def abrir_janela_principal():
@@ -7,6 +8,7 @@ def abrir_janela_principal():
     janela_principal = ctk.CTkToplevel()
     janela_principal.title('Sharpgear Launcher - Principal')
     janela_principal.geometry('1280x720')
+    janela_principal.resizable(False, False)
 
     janela_principal.focus_force()
     janela_principal.attributes("-topmost", True)
@@ -14,6 +16,16 @@ def abrir_janela_principal():
 
     laura = TabView(janela_principal)
     laura.pack(side = 'left',fill = 'y')
+
+    # Foto do Perfil
+    janela_principal.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\sg_pfp_ph.png"), size=(30, 30))
+    janela_principal.imagem_label_grande = ctk.CTkLabel(janela_principal, image=janela_principal.imagem_grande, text="", cursor="hand2")
+    janela_principal.imagem_label_grande.bind("<Button-1>", command=lambda _: laura.set("ㅤPerfilㅤ"))
+    janela_principal.imagem_label_grande.place(x=1120, y=13)
+    
+    # Logo Sharpgear Grande
+    janela_principal.imagem_label_grande = ctk.CTkLabel(janela_principal,font=("Poppins", 28,"bold"), text="SHARPGEAR.LAUNCHER")
+    janela_principal.imagem_label_grande.place(x=760, y=5)
 
     janela_principal.mainloop()
 

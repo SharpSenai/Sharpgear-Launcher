@@ -52,8 +52,15 @@ class FrameBiblioteca(ctk.CTkFrame):
             self.imagem_label_grande.grid(row = 0, column = 1)
             
             self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command=iniciarJogo)
-            self.botao.place(x= 950,y=400)
+            self.botao.place(x= 950,y=370)
             print(self.jogo_selecionado)
+
+            self.game_desc = ctk.CTkLabel(self,bg_color='black',justify = 'left',font=("Poppins",14),text=self.jogo_selecionado["desc"])
+            self.game_desc.place(x=280,y = 450)
+
+            self.game_dev = ctk.CTkLabel(self,bg_color='black',justify = 'right',font=("Poppins",14),text=f"Desenvolvedor: {self.jogo_selecionado["developer"]}")
+            self.game_dev.place(x=880,y = 450)
+
 
         def procurar_jogos(event=None):
             consulta = self.combobox.get()  # Texto digitado na combobox
@@ -88,15 +95,75 @@ class FrameBiblioteca(ctk.CTkFrame):
         self.combobox.set("")
         self.combobox.bind("<KeyRelease>",procurar_jogos)
 
+        self.imagem_grande = ctk.CTkImage(dark_image=Image.open('sharpgear-ui\images\library_sharpgear.png'), size=(1920/2.1, 1500/2.1))
+        self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
+        self.imagem_label_grande.grid(row = 0, column = 1)
+
 class FrameLoja(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master)
+
+        class FrameJogoLoja(ctk.CTkFrame):
+            def __init__(self, parent,_titulo, _desc, _splash, _shot0, _shot1, _price):
+                super().__init__(parent)
+
+                def adquirir_jogo():
+                    self.btt_adquirir.configure(state = "disabled",text = "Adquirido")
+                    database.add_jogo_biblioteca(global_vars.usuarioAtual["user"],_titulo)
+                
+                # Configuração do frame principal
+                self.main_frame = ctk.CTkFrame(self)
+                self.main_frame.grid(row=0, column=0)
+                
+                # Imagem do jogo
+                self.imagem_grande = ctk.CTkImage(dark_image=Image.open(_splash), size=(1920/4, 1080/4))
+                self.imagem_label_grande = ctk.CTkLabel(self.main_frame, image=self.imagem_grande, text="")
+                self.imagem_label_grande.grid(row=0, column=0,padx = 10)
+
+                # Frame lateral
+                self.side_frame = ctk.CTkFrame(self.main_frame)
+                self.side_frame.grid(row=0, column=1)
+
+                # Título
+                self.label_titulo = ctk.CTkLabel(self.side_frame, justify='left', font=("Poppins", 17, "bold"), text=_titulo)
+                self.label_titulo.grid(row=0, column=0, sticky='w', padx=20, pady=10)
+
+                # Screenshots do Jogo
+                self.screenshot_1 = ctk.CTkImage(dark_image=Image.open(_shot0), size=(1920/14, 1080/14))
+                self.label_screenshot_1 = ctk.CTkLabel(self.side_frame, justify='left', image=self.screenshot_1, text="")
+                self.label_screenshot_1.grid(row=1, column=0, sticky='w', padx=20)
+
+                self.screenshot_2 = ctk.CTkImage(dark_image=Image.open(_shot1), size=(1920/14, 1080/14))
+                self.label_screenshot_2 = ctk.CTkLabel(self.side_frame, image=self.screenshot_2, text="")
+                self.label_screenshot_2.grid(row=1, column=0, sticky='e', padx=40)
+
+                # Descrição
+                self.label_descricao = ctk.CTkLabel(
+                    self.side_frame,
+                    font=("Poppins", 12, "bold"),
+                    justify='left',
+                    text=_desc
+                )
+                self.label_descricao.grid(row=2, column=0, sticky='w', padx=20, pady=10)
+
+                # Botão de Adquirir
+                self.btt_adquirir = ctk.CTkButton(self.side_frame, font=("Poppins", 12, "bold"), text="Adquirir",command=adquirir_jogo)
+                self.btt_adquirir.grid(row=3, column=0, sticky='w', padx=20, pady=5)
+
+                # Preço e status
+                self.label_preco = ctk.CTkLabel(
+                    self.side_frame,
+                    font=("Poppins", 15, "bold"),
+                    justify='left',
+                    text="Gratuito            ̶{}̶".format(_price)
+                )
+                self.label_preco.grid(row=3, column=0, sticky='e', padx=20, pady=10)
 
         self.scroll_frame = ctk.CTkScrollableFrame(self)
         self.scroll_frame.configure(width = 1280,height = 720)
         self.scroll_frame.pack(fill = 'both')
 
-        self.label = ctk.CTkLabel(self.scroll_frame,text="Originais Sharpgear:", font=("Poppins", 15,"bold"))
+        self.label = ctk.CTkLabel(self.scroll_frame,text="Originais Sharpgear:", font=("Poppins", 20,"bold"))
         self.label.pack(anchor = 'w',padx = 150,pady = 10)
 
         game_info = database.get_gameInfo("Surv N Live")
@@ -120,83 +187,57 @@ class FrameLoja(ctk.CTkFrame):
                                         get_images["Capa"],
                                         get_images["Screenshot0"],
                                         get_images["Screenshot1"],
-                                        "R$20"
+                                        ""
                                         )
         
-        self.hw_frame.pack(pady = 20)
-
-class FrameJogoLoja(ctk.CTkFrame):
-    def __init__(self, parent,_titulo, _desc, _splash, _shot0, _shot1, _price):
-        super().__init__(parent)
-
-        def adquirir_jogo():
-            self.btt_adquirir.configure(state = "disabled",text = "Adquirido")
-            database.add_jogo_biblioteca(global_vars.usuarioAtual["user"],_titulo)
-        
-        # Configuração do frame principal
-        self.snl_frame = ctk.CTkFrame(self)
-        self.snl_frame.grid(row=0, column=0)
-        
-        # Imagem do jogo
-        self.imagem_grande = ctk.CTkImage(dark_image=Image.open(_splash), size=(1920/4, 1080/4))
-        self.imagem_label_grande = ctk.CTkLabel(self.snl_frame, image=self.imagem_grande, text="")
-        self.imagem_label_grande.grid(row=0, column=0,padx = 10)
-
-        # Frame lateral
-        self.side_frame = ctk.CTkFrame(self.snl_frame)
-        self.side_frame.grid(row=0, column=1)
-
-        # Título
-        self.label_titulo = ctk.CTkLabel(self.side_frame, justify='left', font=("Poppins", 15, "bold"), text=_titulo)
-        self.label_titulo.grid(row=0, column=0, sticky='w', padx=20, pady=10)
-
-        # Screenshots do Jogo
-        self.screenshot_1 = ctk.CTkImage(dark_image=Image.open(_shot0), size=(1920/14, 1080/14))
-        self.label_screenshot_1 = ctk.CTkLabel(self.side_frame, justify='left', image=self.screenshot_1, text="")
-        self.label_screenshot_1.grid(row=1, column=0, sticky='w', padx=20)
-
-        self.screenshot_2 = ctk.CTkImage(dark_image=Image.open(_shot1), size=(1920/14, 1080/14))
-        self.label_screenshot_2 = ctk.CTkLabel(self.side_frame, image=self.screenshot_2, text="")
-        self.label_screenshot_2.grid(row=1, column=0, sticky='e', padx=40)
-
-        # Descrição
-        self.label_descricao = ctk.CTkLabel(
-            self.side_frame,
-            font=("Poppins", 12, "bold"),
-            justify='left',
-            text=_desc
-        )
-        self.label_descricao.grid(row=2, column=0, sticky='w', padx=20, pady=10)
-
-        # Botão de Adquirir
-        self.btt_adquirir = ctk.CTkButton(self.side_frame, font=("Poppins", 12, "bold"), text="Adquirir",command=adquirir_jogo)
-        self.btt_adquirir.grid(row=3, column=0, sticky='w', padx=20, pady=5)
-
-        # Preço e status
-        self.label_preco = ctk.CTkLabel(
-            self.side_frame,
-            font=("Poppins", 15, "bold"),
-            justify='left',
-            text="Gratuito            ̶{}̶".format(_price)
-        )
-        self.label_preco.grid(row=3, column=0, sticky='e', padx=20, pady=10)
+        self.hw_frame.pack(pady = 50)
 
 class FramePerfil(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
- 
-        font_titulo = ("Arial", 18, "bold")  # Fonte maior para título
-        font_padrao = ("Poppins", 16, "bold")         # Fonte padrão para informações
 
+        class FrameUserInfo(ctk.CTkFrame):
+            def __init__(self, parent):
+                super().__init__(parent)
+
+                font_titulo = ("Poppins", 18, "bold")  # Fonte maior para título
+                font_padrao = ("Poppins", 16, "bold")         # Fonte padrão para informações
+
+                # Configuração do frame principal
+                self.main_frame = ctk.CTkFrame(self)
+                self.main_frame.pack()
+                
+                # Imagem do jogo
+                self.imagem_grande = ctk.CTkImage(dark_image=Image.open("sharpgear-ui\images\sg_pfp_ph.png"), size=(200,200))
+                self.imagem_label_grande = ctk.CTkLabel(self.main_frame, image=self.imagem_grande, text="")
+                self.imagem_label_grande.grid(row=0, column=0,padx = 10)
+
+                # Frame lateral
+                self.side_frame = ctk.CTkFrame(self.main_frame)
+                self.side_frame.grid(row=0, column=1)
+
+                self.username = ctk.CTkLabel(self.side_frame, text=f"Usuário: {global_vars.usuarioAtual["user"]}", font=font_titulo)
+                self.username.grid(row = 0, column = 0,pady = 10, padx = 10, sticky = 'w')
+
+                self.nome = ctk.CTkLabel(self.side_frame, text=f"Nome: {global_vars.usuarioAtual["nome"]}", font=font_padrao)
+                self.nome.grid(row=1, column=0,pady = 3, padx = 10, sticky = 'w')
+
+                self.email = ctk.CTkLabel(self.side_frame, text=f"Email: {global_vars.usuarioAtual["email"]}", font=font_padrao)
+                self.email.grid(row=2, column=0,pady = 3, padx = 10, sticky = 'w')
+
+                self.nasc = ctk.CTkLabel(self.side_frame, text=f"Data de Nascimento: {global_vars.usuarioAtual["nasc"]}", font=font_padrao)
+                self.nasc.grid(row=3, column=0,pady = 3, padx = 10, sticky = 'w')
+
+        self.scroll_frame = ctk.CTkScrollableFrame(self)
+        self.scroll_frame.configure(width = 1280,height = 720)
+        self.scroll_frame.pack(fill = 'both')
+        
+        user_profile = FrameUserInfo(self.scroll_frame)
+        user_profile.pack(pady = 20)
+
+        #
+        '''
         # Exibe o nome do usuário no frame de perfil
-        self.username = ctk.CTkLabel(self, text=global_vars.usuarioAtual["user"], font=font_titulo)
-        self.username.grid(row=0, column=0, pady=10)
+        
 
-        self.email = ctk.CTkLabel(self, text=global_vars.usuarioAtual["email"], font=font_padrao)
-        self.email.grid(row=1, column=0, pady=5)
-
-        self.nome = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nome"], font=font_padrao)
-        self.nome.grid(row=2, column=0, pady=5)
-
-        self.nasc = ctk.CTkLabel(self, text=global_vars.usuarioAtual["nasc"], font=font_padrao)
-        self.nasc.grid(row=3, column=0, pady=5)
+'''

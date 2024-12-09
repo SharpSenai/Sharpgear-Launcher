@@ -1,15 +1,18 @@
 import customtkinter as ctk
 from login_register import LoginFrame,RegisterFrame
-from PIL import Image
+from PIL import Image,ImageTk
 
 ctk.set_widget_scaling(1.1)
-ctk.set_default_color_theme("sharpgear-ui/themes/sharpgear.json")
+ctk.set_default_color_theme("ctkthemebuilder/ctk_theme_builder/user_themes/sharpgear.json")
 ctk.set_appearance_mode("Dark")
 
 class Main(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.geometry('0x0')
+        icon = ImageTk.PhotoImage(Image.open("sharpgear-ui\images\sg_logo.png"))
+        self.iconphoto(True,icon)
+        self.iconify() 
         LoginWindow()
 
 class Login_Register_Tabview(ctk.CTkTabview):
@@ -34,6 +37,7 @@ class LoginWindow(ctk.CTkToplevel):
         self.title('Sharpgear Launcher - Login')
         self.geometry('960x540')
         self.resizable(False, False)
+
         self.attributes("-topmost", False)  # Remove o comportamento "sempre no topo" após abrir
         # Frame Principal.
         #self.login_frame = LoginFrame(self)

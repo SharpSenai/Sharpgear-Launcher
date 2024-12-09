@@ -218,3 +218,48 @@
  04/12/2024 00:59:11 | SUPPLEMENTARY | Theme Builder Control Panel exiting
  04/12/2024 00:59:11 | COMPLETED | PreviewPanel
  04/12/2024 00:59:11 | SUPPLEMENTARY | Theme Builder Preview Panel closed
+ 08/12/2024 17:49:40 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 17:49:40 | STARTED | [ControlPanel] 
+ 08/12/2024 17:49:40 | SUPPLEMENTARY | Theme Builder Control Panel started...
+ 08/12/2024 17:49:40 | INFO | Application version: 3.1.0
+ 08/12/2024 17:49:40 | INFO | CustomTkinter version: 5.2.2
+ 08/12/2024 17:49:41 | INFO | [ControlPanel.launch_preview]: Launching preview panel
+ 08/12/2024 17:49:42 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 17:49:42 | STARTED | [PreviewPanel] 
+ 08/12/2024 17:49:42 | SUPPLEMENTARY | Theme Builder Preview Panel launched
+ 08/12/2024 17:49:43 | INFO | [PreviewPanel._method_listener]: Starting method listener on port 5051...
+ 08/12/2024 17:49:43 | INFO | [PreviewPanel._method_listener]: Method listener successfully started
+ 08/12/2024 17:49:43 | INFO | [ControlPanel.launch_preview]: Listener established
+ 08/12/2024 18:02:25 | INFO | [ControlPanel.launch_preview]: Launching preview panel
+ 08/12/2024 18:02:25 | COMPLETED | PreviewPanel
+ 08/12/2024 18:02:25 | SUPPLEMENTARY | Theme Builder Preview Panel closed
+ 08/12/2024 18:02:26 | INFO | [ControlPanel.launch_preview]: Listener established
+ 08/12/2024 18:02:26 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 18:02:26 | STARTED | [PreviewPanel] 
+ 08/12/2024 18:02:26 | SUPPLEMENTARY | Theme Builder Preview Panel launched
+ 08/12/2024 18:02:26 | INFO | [PreviewPanel._method_listener]: Starting method listener on port 5051...
+ 08/12/2024 18:02:26 | INFO | [PreviewPanel._method_listener]: Method listener successfully started
+ 08/12/2024 18:06:32 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 18:06:32 | STARTED | [ControlPanel] 
+ 08/12/2024 18:06:32 | SUPPLEMENTARY | Theme Builder Control Panel started...
+ 08/12/2024 18:06:32 | INFO | Application version: 3.1.0
+ 08/12/2024 18:06:32 | INFO | CustomTkinter version: 5.2.2
+ 08/12/2024 18:06:33 | INFO | [ControlPanel.launch_preview]: Launching preview panel
+ 08/12/2024 18:06:34 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 18:06:34 | STARTED | [PreviewPanel] 
+ 08/12/2024 18:06:34 | SUPPLEMENTARY | Theme Builder Preview Panel launched
+ 08/12/2024 18:06:34 | INFO | [PreviewPanel._method_listener]: Starting method listener on port 5051...
+ 08/12/2024 18:06:34 | INFO | [PreviewPanel._method_listener]: Method listener successfully started
+ 08/12/2024 18:06:34 | INFO | [ControlPanel.launch_preview]: Listener established
+ 08/12/2024 18:15:19 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 18:15:19 | STARTED | [ControlPanel] 
+ 08/12/2024 18:15:19 | SUPPLEMENTARY | Theme Builder Control Panel started...
+ 08/12/2024 18:15:19 | INFO | Application version: 3.1.0
+ 08/12/2024 18:15:19 | INFO | CustomTkinter version: 5.2.2
+ 08/12/2024 18:15:25 | INFO | [ControlPanel.launch_preview]: Launching preview panel
+ 08/12/2024 18:15:26 | INFO | [lib.loggerutl] Logging enabled with a logging level of: INFO
+ 08/12/2024 18:15:26 | STARTED | [PreviewPanel] 
+ 08/12/2024 18:15:26 | SUPPLEMENTARY | Theme Builder Preview Panel launched
+ 08/12/2024 18:15:26 | INFO | [PreviewPanel._method_listener]: Starting method listener on port 5051...
+ 08/12/2024 18:15:26 | INFO | [PreviewPanel._method_listener]: Method listener successfully started
+ 08/12/2024 18:15:27 | INFO | [ControlPanel.launch_preview]: Listener established

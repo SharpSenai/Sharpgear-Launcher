@@ -154,7 +154,7 @@
     "corner_radius": 6,
     "fg_color": [
       "#748498",
-      "#748498"
+      "#868686"
     ],
     "button_color": [
       "#2b3948",
@@ -178,15 +178,15 @@
     "border_width": 2,
     "fg_color": [
       "#a9b8c4",
-      "#ffffff"
+      "#282828"
     ],
     "border_color": [
       "#3d4956",
-      "#000000"
+      "#ffffff"
     ],
     "button_color": [
       "#5e6b7c",
-      "#ffffff"
+      "#aeaeae"
     ],
     "button_hover_color": [
       "#5c636c",
@@ -194,7 +194,7 @@
     ],
     "text_color": [
       "#2b3449",
-      "#000000"
+      "#ffffff"
     ],
     "text_color_disabled": [
       "#5e6b7c",
@@ -207,11 +207,11 @@
     "fg_color": "transparent",
     "button_color": [
       "#4e5c6e",
-      "#11202b"
+      "#ffffff"
     ],
     "button_hover_color": [
       "#1c1e18",
-      "#404c59"
+      "#282828"
     ]
   },
   "CTkSegmentedButton": {
@@ -223,7 +223,7 @@
     ],
     "selected_color": [
       "#d3dbe1",
-      "#232323"
+      "#333333"
     ],
     "selected_hover_color": [
       "#c6ced8",
@@ -243,7 +243,7 @@
     ],
     "text_color_disabled": [
       "#3c444e",
-      "#d90005"
+      "#de050a"
     ]
   },
   "CTkTextbox": {
@@ -279,7 +279,7 @@
   "DropdownMenu": {
     "fg_color": [
       "#748498",
-      "#ffffff"
+      "#282828"
     ],
     "hover_color": [
       "#d3dbe1",
@@ -287,7 +287,7 @@
     ],
     "text_color": [
       "#000000",
-      "#000000"
+      "#ffffff"
     ]
   },
   "CTkFont": {
@@ -313,7 +313,7 @@
     "date created": "Dec 03 2024 22:50:50",
     "last modified by": "adria",
     "created with": "CTk Theme Builder v3.1.0",
-    "last modified": "Dec 04 2024 00:34:40",
+    "last modified": "Dec 08 2024 18:27:56",
     "keystone colour": "#3c5064",
     "harmony method": "Split-complementary",
     "harmony differential": null
@@ -335,7 +335,7 @@
     ],
     "checkmark_color": [
       "#ffffff",
-      "#ffffff"
+      "#282828"
     ],
     "text_color": [
       "#2b3449",
