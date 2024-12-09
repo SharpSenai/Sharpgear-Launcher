@@ -9,6 +9,10 @@ ctk.set_appearance_mode("Dark")
 class Main(ctk.CTk):
     def __init__(self):
         super().__init__()
+        
+        import database
+        database.init_Database()
+        
         self.geometry('0x0')
         icon = ImageTk.PhotoImage(Image.open("sharpgear-ui\images\sg_logo.png"))
         self.iconphoto(True,icon)

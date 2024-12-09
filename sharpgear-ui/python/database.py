@@ -3,11 +3,53 @@ import os
 import json
 
 #Conexão com o Banco de Dados
-path_db = os.path.join("C:", "Dados","sh")
+def init_Database():
+    ##Criar Tabela Usuários
+    os.path.join("C:", "Dados","sh")
 
-connection = sqlite3.connect("sharpgear-ui\\database\\sharp_database.db")
-print(connection.total_changes)
-cursor = connection.cursor()
+    connection = sqlite3.connect("sharpgear-ui\\database\\sharp_database.db")
+    print(connection.total_changes)
+    cursor = connection.cursor()
+
+    cursor.execute('''
+                CREATE TABLE IF NOT EXISTS users ( 
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL, 
+                user TEXT UNIQUE  NOT NULL, 
+                email TEXT UNIQUE NOT NULL, 
+                senha TEXT  NOT NULL, 
+                nasc TEXT  NOT NULL
+    )
+    ''')
+
+    ##Criar Tabela Jogos
+    cursor.execute('''
+                CREATE TABLE IF NOT EXISTS games(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                developer TEXT,
+                desc TEXT,
+                gameURL TEXT,
+                images TEXT,
+                isExe INTEGER
+                )
+    ''')
+
+    #Criar Tabela Bibliotecas
+    cursor.execute(''' 
+                    CREATE TABLE IF NOT EXISTS bibliotecas(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INT NOT NULL,
+                    game_id INT NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users (id),
+                    FOREIGN KEY (game_id) REFERENCES games (id)
+                    )
+    ''')
+    
+    connection.commit()
+    connection.close()
+
+    init_Games()
 
 def get_gameInfo(gameName: str) :
     gameInfo = {}
@@ -165,51 +207,15 @@ class currentUser:
             print("Erro ao conectar ao banco de dados: ", e)
         finally: 
             conn.close()
-        
-##Criar Tabela Usuários
-cursor.execute('''
-               CREATE TABLE IF NOT EXISTS users ( 
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               nome TEXT NOT NULL, 
-               user TEXT UNIQUE  NOT NULL, 
-               email TEXT UNIQUE NOT NULL, 
-               senha TEXT  NOT NULL, 
-               nasc TEXT  NOT NULL
-)
-''')
 
-##Criar Tabela Jogos
-cursor.execute('''
-               CREATE TABLE IF NOT EXISTS games(
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               name TEXT NOT NULL,
-               developer TEXT,
-               desc TEXT,
-               gameURL TEXT,
-               images TEXT,
-               isExe INTEGER
-               )
-''')
-
-#Criar Tabela Bibliotecas
-cursor.execute(''' 
-                CREATE TABLE IF NOT EXISTS bibliotecas(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INT NOT NULL,
-                game_id INT NOT NULL,
-                FOREIGN KEY (user_id) REFERENCES users (id),
-                FOREIGN KEY (game_id) REFERENCES games (id)
-                )
-''')
-
-
-add_jogos("Hell-O World", "Adrian Barbosa\nSharpgear Underground", 
+def init_Games():
+    add_jogos("Hell-O World", "Adrian Barbosa\nSharpgear Underground", 
                                         "HELL-O WORLD é um jogo PvP para 2-4 jogadores\n"
                                         "que utiliza o sistema de Rollback Beta do GMS2.\n"
                                         "Convide seus amigos (se você tiver algum) para\n"
                                         "destruí-los nesse jogo de tiro competitivo Top-Down.\n"
                                         "-Criado e desenvolvido por AdriN.",
-            "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
+                                        "https://gx.games/pt-br/games/mzuh34/hell-o-world/", 
           json.dumps(
               {
                   "Capa": "sharpgear-ui\images\hw\splash_hell0world.png",
@@ -220,21 +226,18 @@ add_jogos("Hell-O World", "Adrian Barbosa\nSharpgear Underground",
           ), 0)
 
 
-add_jogos("Surv N Live", "Adrian Barbosa\nSharpgear Underground",
-                                        "Surv N' Live é um jogo coop top down no qual você\n"
-                                        "assume o papel de três jovens de um grupo de\n"
-                                        "hackers que foram “convidados” de maneira curta\n"
-                                        "e gentil a participar de uma série de desafios que\n"
-                                        "valem sua liberdade... ou até mesmo sua vida.",
-                                        "https://gx.games/games/g14inf/surv-n-live-0-0-0-7-old-ver-/tracks/f2d8415e-9385-43f6-8776-0deec28eb368/", 
-          json.dumps(
-              {
-                  "Capa": "sharpgear-ui\images\snl\splash_survnlive.png",
-                  "Thumb":"sharpgear-ui\images\snl\library_survnlive.png",
-                  "Screenshot0":"sharpgear-ui\images\snl\snl_screenshot0.png",
-                  "Screenshot1":"sharpgear-ui\images\snl\snl_screenshot1.png"
-              }
-          ), 0)
-
-connection.commit()
-connection.close()
+    add_jogos("Surv N Live", "Adrian Barbosa\nSharpgear Underground",
+                                            "Surv N' Live é um jogo coop top down no qual você\n"
+                                            "assume o papel de três jovens de um grupo de\n"
+                                            "hackers que foram “convidados” de maneira curta\n"
+                                            "e gentil a participar de uma série de desafios que\n"
+                                            "valem sua liberdade... ou até mesmo sua vida.",
+                                            "sharpgear-ui\games\survnlive\projectsurvnlive.exe", 
+            json.dumps(
+                {
+                    "Capa": "sharpgear-ui\images\snl\splash_survnlive.png",
+                    "Thumb":"sharpgear-ui\images\snl\library_survnlive.png",
+                    "Screenshot0":"sharpgear-ui\images\snl\snl_screenshot0.png",
+                    "Screenshot1":"sharpgear-ui\images\snl\snl_screenshot1.png"
+                }
+            ), 1)

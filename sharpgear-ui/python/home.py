@@ -1,9 +1,9 @@
 import customtkinter as ctk
 from PIL import Image
 import sqlite3
-import webbrowser
 import database
 import global_vars
+import game_handler
 
 class TabView(ctk.CTkTabview):
     def __init__(self, master):
@@ -51,7 +51,7 @@ class FrameBiblioteca(ctk.CTkFrame):
             self.imagem_label_grande = ctk.CTkLabel(self, image=self.imagem_grande, text="")
             self.imagem_label_grande.grid(row = 0, column = 1)
             
-            self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command=iniciarJogo)
+            self.botao = ctk.CTkButton(self,text="JOGAR",font=('Poppins',16,'bold'), command= lambda:game_handler.gameHandler(self.jogo_selecionado))
             self.botao.place(x= 950,y=370)
             print(self.jogo_selecionado)
 
@@ -82,10 +82,6 @@ class FrameBiblioteca(ctk.CTkFrame):
                 print("Erro ao buscar jogos na biblioteca:", e)
             finally:
                 conn.close()
-
-        def iniciarJogo():
-            if self.jogo_selecionado:
-                webbrowser.open(self.jogo_selecionado["gameURL"], new=1)
 
         # Combobox para busca de jogos
         self.combobox = ctk.CTkComboBox(master=self, values=[""], width=220,state="normal",font=('Poppins', 13,'bold'), command=selecionarJogo)
